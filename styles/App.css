@@ -2,7 +2,6 @@
 
 :root{
 
-  /* Main Colors */
   --mainColor: #0059f7;
   --mainColorHover: #f3f9fe;
   --appBackground:#f9f9fb;
@@ -13,15 +12,16 @@
   --appTextNoHover: #818e98;
   --appTextHover: #fff;
 
-  --appFont: 'Open Sans', sans-serif;
+  --appFont:'Open Sans', sans-serif;
 
   --colorGreen: #39e75f;
   --colorRed: #e71f20;
 
 }
 body{
-  background-color: var(--appBackground);
+  background-color: red;
 }
+*{padding:0; margin:0;}
 
 .App__Body{
   display: flex;
@@ -34,5 +34,7 @@ body{
 }
 .App__Content{
   height: auto;
+  margin-left: 100px;
   width: calc(100% - 100px);
 }
+

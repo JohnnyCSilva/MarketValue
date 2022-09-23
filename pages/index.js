@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import NavBarDesktop from '../components/NavBar/NavBarDesktop';
 import NavBarMobile from '../components/NavBar/NavBarMobile';
+import TopBar from '../components/mainApp/TopBar';
 import 'primeicons/primeicons.css';
 
 export default function Home() {
@@ -17,9 +18,11 @@ export default function Home() {
           <NavBarDesktop />
           <NavBarMobile />
       </div>
-      <div className="App__Content"></div>
+      <div className="App__Content">
 
-      
+          <TopBar />
+
+      </div>
     </div>
   )
 }
