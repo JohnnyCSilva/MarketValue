@@ -1,0 +1,96 @@
+.navBar__content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.navBar__logo{
+    height: 33%;
+}
+.navBar__logo>img{
+    margin: 30px 0; 
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+.navBar__logo>img:hover{
+    transform: rotate(359deg) scale(0.9);
+}
+
+/* NAVBAR LINKS */
+
+
+.navBar__links{
+    height: 33%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 50px 0;
+}
+.navBar__links>a{
+    border-radius: 10px;
+    margin: 5px 0;
+    padding: 20px;
+    text-decoration: none;
+    font-size: 17px;
+    border-radius: 15px;
+    color: var(--appTextNoHover)
+}
+.navBar__links>a:hover{
+    transform: scale(0.9);
+    background-color: var(--mainColorHover);
+    color: var(--mainColor);
+    transition: 0.2s ease-in-out;
+}
+.navBar__links>a>i{
+    transition: 0.2s ease-in-out;
+}
+.navBar__links>a>i:hover{
+}
+.navBar__links>a.activeDesktop{
+    background-color: var(--mainColorHover);
+    border-radius: 15px;
+    color: var(--mainColor);
+}
+.navBar__links>a.activeDesktop>i{
+    transform: rotate(45deg);
+}
+
+/* NAVBAR USER */
+
+.navBar__user{
+    height: 33%;
+    top: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.navBar__user>a{
+    border-radius: 10px;
+    margin: 5px 0;
+    padding: 20px;
+    text-decoration: none;
+    font-size: 17px;
+    border-radius: 15px;
+    color: var(--appTextNoHover)
+}
+.navBar__user>a:hover{
+    transform: scale(0.9);
+    background-color: var(--mainColorHover);
+    color: var(--mainColor);
+    transition: 0.2s ease-in-out;
+}
+.navBar__user>a>i{
+    transition: 0.2s ease-in-out;
+}
+.navBar__user>a>i:hover{
+}
+.navBar__user>a.user{
+    background-color: var(--mainColorHover);
+    color: var(--mainColor);
+}
+
+
+/* Responsive */
