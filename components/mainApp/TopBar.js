@@ -21,8 +21,7 @@ const TopBar = () => {
                 <a href="">
                     <i className='pi pi-cog'></i>
                 </a>
-                
-            </div>  
+            </div> 
         </div>
     </div>
   )

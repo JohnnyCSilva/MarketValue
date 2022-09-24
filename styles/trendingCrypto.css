@@ -1,0 +1,95 @@
+.TrendingCrypto__main{
+    width: 100%
+}
+.TrendingCrypto__container{
+    width: calc(100% - 100px);
+    margin: 50px 50px;
+    border-radius: 5px;
+    height: auto;
+}
+
+.TrendingCrypto__header{
+    font-family: var(--appFont);
+    padding: 10px;
+}
+.TrendingCrypto__content{
+    padding: 20px 0;
+    display: flex;
+}
+
+/* CRYPTO TREND BLOCK */
+
+.blockCrypto__main{
+    border-radius: 15px;
+    min-width: 250px;
+    width: auto;
+    height: auto;
+    margin: 10px 10px;
+    background-color: var(--appBackgroundHover);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+.blockCrypto__main:hover{
+    box-shadow: var(--boxShadow);   
+}
+.blockCrypto__header{
+    display: flex;
+    margin: 20px;
+}
+.blockCrypto__header>a{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 10px;
+    background-color: var(--mainColorHover);
+    transition: 0.2s ease-in-out;
+}
+.blockCrypto__header>a>img{
+    width: 25px;
+    height: 25px;
+    transition: 0.2s ease-in-out;
+}
+.blockCrypto__header>a:hover>img{
+    transform: rotate(-30deg);
+}
+.blockCrypto__title{
+    font-family: var(--appFont);
+    font-size: 15px;
+    padding: 0 10px;  
+}
+.blockCrypto__graph>img{
+    width: 100%;
+}
+.blockCrypto__info{
+    margin: 10px 20px;
+}
+.blockCrypto__percentage{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.blockCrypto__percentage>p{
+    font-weight: bold;
+    padding: 5px 20px;
+    font-family: var(--appFont);
+    font-size: 14px;
+    border-radius: 50px;
+}
+
+.blockCrypto__info>h2{
+    margin: 2px 0px 15px 0px;
+    font-family: var(--appFont);
+}
+
+/* RESPONSIVE */
+
+@media only screen and (max-width:1625px){
+    .TrendingCrypto__content{
+        overflow-x: scroll;
+    }
+}

@@ -5,9 +5,6 @@
     align-items: center;
     justify-content: space-evenly;
 }
-.navBar__logo{
-    height: 33%;
-}
 .navBar__logo>img{
     margin: 25px 0; 
     width: 50px;
@@ -56,39 +53,45 @@
     transform: rotate(45deg);
 }
 
-/* NAVBAR USER */
+/* RESPONSIVE SIDEBAR */
 
-.navBar__user{
-    height: 33%;
-    top: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.navBar__Responsivive{
+    display: none;
 }
-.navBar__user>a{
+.navBar__Responsivive>a{
     border-radius: 10px;
     margin: 5px 0;
-    padding: 20px;
+    padding: 21px 23px 20px 23px;
     text-decoration: none;
     font-size: 17px;
     border-radius: 15px;
-    color: var(--appTextNoHover)
+    color: var(--appTextNoHover);
+    transition: 0.2s ease-in-out;
 }
-.navBar__user>a:hover{
+.navBar__Responsivive>a:hover{
     transform: scale(0.9);
     background-color: var(--mainColorHover);
     color: var(--mainColor);
     transition: 0.2s ease-in-out;
 }
-.navBar__user>a>i{
+.navBar__Responsivive>a>i{
     transition: 0.2s ease-in-out;
 }
-.navBar__user>a>i:hover{
+.navBar__Responsivive>a>i:hover{
 }
-.navBar__user>a.user{
+.navBar__Responsivive>a.activeTopBar{
     background-color: var(--mainColorHover);
     color: var(--mainColor);
 }
 
-
 /* Responsive */
+
+@media only screen and (max-width:784px){
+    .navBar__Responsivive{
+        vertical-align: bottom;
+        top: 100%;
+        display: flex;
+        flex-direction: column;
+
+    }
+}

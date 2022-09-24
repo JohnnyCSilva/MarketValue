@@ -34,7 +34,7 @@
 }
 .topBar__search>input{
     text-transform: capitalize;
-    width: 250px;
+    max-width: 250px;
     font-family: var(--appFont);
     background: none;
     padding: 0 15px;
@@ -67,8 +67,14 @@
 }
 .topBar__icons>a.activeTopBar{
     background-color: var(--mainColorHover);
-    border-radius: 50px;
+    border-radius: 15px;
     color: var(--mainColor);
 }
 
+/* Responsive */
 
+@media only screen and (max-width:784px){
+    .topBar__icons{
+        display: none;
+    }
+}

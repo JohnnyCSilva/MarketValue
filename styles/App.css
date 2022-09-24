@@ -5,7 +5,7 @@
   --mainColor: #0059f7;
   --mainColorHover: #f3f9fe;
   --appBackground:#f9f9fb;
-  --appBackgroundHover: #ffffff;
+  --appBackgroundHover:#ffffff;
   --appLine: #EEF2F6;
 
   --appText: #000;
@@ -14,12 +14,35 @@
 
   --appFont:'Open Sans', sans-serif;
 
-  --colorGreen: #39e75f;
+  --colorGreen: #2EC869;
+  --colorGreenLight: #A2E7BC; 
   --colorRed: #e71f20;
+  --colorRedLight: #F49B9B; 
+
+  --boxShadow : 0px 0px 10px rgba(10,10,10, 0.1);
 
 }
+
+/* SCROLL BAR CUSTOM  */
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+/* APP */
+
 body{
-  background-color: red;
+  background-color: var(--appBackground);
 }
 *{padding:0; margin:0;}
 
@@ -37,4 +60,18 @@ body{
   margin-left: 100px;
   width: calc(100% - 100px);
 }
+
+.colorRed{
+  color: var(--colorRed);
+}
+.colorRedLight{
+  background-color: var(--colorRedLight);
+} 
+.colorGreen{
+  color: var(--colorGreen);
+}
+.colorGreenLight{
+  background-color: var(--colorGreenLight);
+}
+
 
