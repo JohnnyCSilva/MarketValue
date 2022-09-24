@@ -32,6 +32,9 @@
 .blockCrypto__main:hover{
     box-shadow: var(--boxShadow);   
 }
+.blockCrypto__main:hover>.blockCrypto__header>a>img{
+    transform: rotate(-30deg);  
+}
 .blockCrypto__header{
     display: flex;
     margin: 20px;
@@ -53,9 +56,6 @@
     width: 25px;
     height: 25px;
     transition: 0.2s ease-in-out;
-}
-.blockCrypto__header>a:hover>img{
-    transform: rotate(-30deg);
 }
 .blockCrypto__title{
     font-family: var(--appFont);

@@ -48,8 +48,9 @@
     margin: 0 50px;
 }
 .topBar__icons>a{
+    cursor: pointer;
     border-radius: 10px;
-    margin: 0 5px;
+    margin: 0 2px;
     padding: 21px 23px 20px 23px;
     text-decoration: none;
     font-size: 17px;
@@ -68,6 +69,7 @@
 .topBar__icons>a.activeTopBar{
     background-color: var(--mainColorHover);
     border-radius: 15px;
+    margin: 0 10px;
     color: var(--mainColor);
 }
 

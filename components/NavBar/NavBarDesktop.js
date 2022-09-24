@@ -25,11 +25,11 @@ const NavBarDesktop = () => {
         </div>
         <div className="navBar__Responsivive">
           <a href="#" className="activeTopBar">
-              <i className="pi pi-user"></i>
-            </a>
-            <a href="#">
-              <i className='pi pi-cog'></i>
-            </a>
+            <i className="pi pi-user"></i>
+          </a>
+          <a href="#">
+            <i className='pi pi-cog'></i>
+          </a>
         </div>
     </div>
   )

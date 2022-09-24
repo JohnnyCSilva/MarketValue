@@ -1,4 +1,5 @@
 import React from 'react'
+import $ from 'jquery'
 
 const TopBar = () => {
 
@@ -15,11 +16,14 @@ const TopBar = () => {
                 <input type='text' placeholder='Search...' id="searchBoxNav" onClick={triggerSearchIcon}/>
             </div>
             <div className='topBar__icons'>
-                <a href="" className='activeTopBar'>
-                    <i className='pi pi-user'></i>
+                <a href="">
+                    <i className="pi pi-moon"></i>
                 </a>
                 <a href="">
                     <i className='pi pi-cog'></i>
+                </a>
+                <a href="" className='activeTopBar'>
+                    <i className='pi pi-user'></i>
                 </a>
             </div> 
         </div>

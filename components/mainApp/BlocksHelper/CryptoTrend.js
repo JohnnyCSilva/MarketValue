@@ -2,22 +2,25 @@ import React from 'react'
 import $ from 'jquery'
 
 const CryptoTrend = ({ name, price, symbol, marketcap, volume, image, priceChange }) => {
-    //pi-arrow-down-right
-    //pi-arrow-up-right
+
+    var chartImage = "";
+
+    var randomImagePos = ['/images/stockGreen1.svg','/images/stockGreen2.svg','/images/stockGreen3.svg','/images/stockGreen4.svg','/images/stockGreen5.svg'];
+    var chartImagePos = randomImagePos[Math.floor(Math.random()*randomImagePos.length)];
+    var randomImageNeg = ['/images/stockRed1.svg','/images/stockRed2.svg','/images/stockRed3.svg','/images/stockRed4.svg','/images/stockRed5.svg'];
+    var chartImageNeg = randomImageNeg[Math.floor(Math.random()*randomImagePos.length)];
 
     $('.percentageP__crypto').each(function() {
         if (parseFloat($(this).text()) >= 0) {
-
           $(this).addClass('colorGreen colorGreenLight');
-          //$(".chartValue").addClass('pi-arrow-up-right colorRed');
-
+          chartImage = chartImagePos;
         } else if (parseFloat($(this).text()) < 0) {
-
           $(this).addClass('colorRed colorRedLight');
-
-          //$(".chartValue").addClass('pi-arrow-down-right');
+          chartImage = chartImageNeg;
         }
     });
+
+ 
 
   return (
     <div className='blockCrypto__main'>
@@ -31,7 +34,7 @@ const CryptoTrend = ({ name, price, symbol, marketcap, volume, image, priceChang
             </div>
         </div>
         <div className='blockCrypto__graph'>
-            <img src="/images/stockGreen2.svg" alt='Graph'/>
+            <img src={chartImage} alt='Graph'/>
         </div>
         <div className='blockCrypto__info'>
             <div className='blockCrypto__percentage'>
