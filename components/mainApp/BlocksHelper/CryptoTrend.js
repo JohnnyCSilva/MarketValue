@@ -11,12 +11,14 @@ const CryptoTrend = ({ name, price, symbol, marketcap, volume, image, priceChang
     var chartImageNeg = randomImageNeg[Math.floor(Math.random()*randomImagePos.length)];
 
     $('.percentageP__crypto').each(function() {
-        if (parseFloat($(this).text()) >= 0) {
+        if (parseFloat($(this).text()) >= "0") {
           $(this).addClass('colorGreen colorGreenLight');
           chartImage = chartImagePos;
-        } else if (parseFloat($(this).text()) < 0) {
+          $('.graph__img').addClass('dropShadowGreen');
+        } else if (parseFloat($(this).text()) < "0") {
           $(this).addClass('colorRed colorRedLight');
           chartImage = chartImageNeg;
+          $('.graph__img').addClass('dropShadowRed');
         }
     });
 
@@ -34,7 +36,7 @@ const CryptoTrend = ({ name, price, symbol, marketcap, volume, image, priceChang
             </div>
         </div>
         <div className='blockCrypto__graph'>
-            <img src={chartImage} alt='Graph'/>
+            <img src={chartImage} alt='Graph' className='graph__img'/>
         </div>
         <div className='blockCrypto__info'>
             <div className='blockCrypto__percentage'>

@@ -73,5 +73,11 @@ body{
 .colorGreenLight{
   background-color: var(--colorGreenLight);
 }
+.dropShadowRed{
+  filter: drop-shadow(0 1 25px var(----colorRed));
+}
+.dropShadowGreen{
+  filter: drop-shadow(0 1 25px var(----colorGreen));
+}
 
 
