@@ -1,28 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import $ from 'jquery'
 
 const CryptoTrend = ({ name, price, symbol, marketcap, volume, image, priceChange }) => {
 
-    var chartImage = "";
+    const [chartImage, setChartImage] = useState();
 
     var randomImagePos = ['/images/stockGreen1.svg','/images/stockGreen2.svg','/images/stockGreen3.svg','/images/stockGreen4.svg','/images/stockGreen5.svg'];
     var chartImagePos = randomImagePos[Math.floor(Math.random()*randomImagePos.length)];
     var randomImageNeg = ['/images/stockRed1.svg','/images/stockRed2.svg','/images/stockRed3.svg','/images/stockRed4.svg','/images/stockRed5.svg'];
     var chartImageNeg = randomImageNeg[Math.floor(Math.random()*randomImagePos.length)];
 
-    $('.percentageP__crypto').each(function() {
-        if (parseFloat($(this).text()) >= "0") {
-          $(this).addClass('colorGreen colorGreenLight');
-          chartImage = chartImagePos;
-          $('.graph__img').addClass('dropShadowGreen');
-        } else if (parseFloat($(this).text()) < "0") {
-          $(this).addClass('colorRed colorRedLight');
-          chartImage = chartImageNeg;
-          $('.graph__img').addClass('dropShadowRed');
-        }
-    });
+    useEffect(() => {	
+        $('.percentageP__crypto').each(function() {
+            //console.log(name + ": " + parseFloat($(this).text()));
+            if (parseFloat($(this).text()) >= 0) {
+                $(this).addClass('colorGreen colorGreenLight');
+                setChartImage( chartImagePos );
+            } else if (parseFloat($(this).text()) <= 0) {
+                $(this).addClass('colorRed colorRedLight');
+                setChartImage( chartImageNeg );
+            }
+            
+        });     
+        console.log(chartImage); 
+    },[]);
 
- 
+    // 🔝 Resolver este problema, colocar esta função na pagina TrendingCryptoBlock.js provavelmente resolve 🔝
 
   return (
     <div className='blockCrypto__main'>
