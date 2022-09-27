@@ -3,7 +3,6 @@ import NavBarDesktop from '../components/NavBar/NavBarDesktop';
 import NavBarMobile from '../components/NavBar/NavBarMobile';
 import TopBar from '../components/mainApp/TopBar';
 import TrendingCryptoBlock from '../components/mainApp/TrendingCryptoBlock';
-import 'primeicons/primeicons.css';
 
 export default function Home() {
   return (

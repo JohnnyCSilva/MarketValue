@@ -56,12 +56,13 @@
     font-size: 17px;
     border-radius: 15px;
     color: var(--appTextNoHover);
-    transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;  
 }
 .topBar__icons>a:hover{
-    transform: scale(0.9);
     background-color: var(--mainColorHover);
     color: var(--mainColor); 
+    transform: scale(1.5);
+
 }
 .topBar__icons>a>i{
     transition: 0.2s ease-in-out;
