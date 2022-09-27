@@ -5,6 +5,24 @@ import CryptoTrend from './BlocksHelper/CryptoTrend'
 
 const TrendingCryptoBlock = () => {
 
+    var randonPhraseString = [
+      "Its the perfect time to buy some Bitcoin!  🪙",
+      "Check some of the Ethereum news to learn more. 📝",
+      "Always do your research before investing! 🧠",
+      "Today's Crypto Market is fire! 🔥",
+      "You should learn some of the DEFI world 😉",
+      "Did you know you can play video games and earn crypto? 🤯",
+      "Are you IN our OUT of Ethereum the POW? 🤔",
+      "We are powered by coingecko, please god don't leed them to bankruptcy 🙏"
+    ];
+
+    const [randomPhrase, setRandomPhrase] = useState();
+    var randonPhraseText = randonPhraseString[Math.floor(Math.random()*randonPhraseString.length)];
+    useEffect(() => {	
+      setRandomPhrase(randonPhraseText.toString()); 
+    },[]);
+
+
     const [TrendingCrypto, setTrendingCrypto] = useState()
 
     useEffect(() => {
@@ -26,7 +44,7 @@ const TrendingCryptoBlock = () => {
         <div className='TrendingCrypto__container'>
             <div className='TrendingCrypto__header'>
                 <h1>Trending Crypto</h1>
-                <p>Today's crypto market is fire 🔥 (criar frases random para aqui)</p>
+                <p>{randomPhrase}</p>
             </div>
             <div className='TrendingCrypto__content'>
                 {TrendingCrypto?.map((coin) => (
