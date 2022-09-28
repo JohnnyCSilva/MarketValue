@@ -3,26 +3,6 @@ import $ from 'jquery'
 
 const CryptoTrend = ({ name, price, symbol, marketcap, volume, image, priceChange }) => {
 
-    var chartImage = ""
-
-    var randomImagePos = ['/images/stockGreen1.svg','/images/stockGreen2.svg','/images/stockGreen3.svg','/images/stockGreen4.svg','/images/stockGreen5.svg'];
-    var chartImagePos = randomImagePos[Math.floor(Math.random()*randomImagePos.length)];
-    var randomImageNeg = ['/images/stockRed1.svg','/images/stockRed2.svg','/images/stockRed3.svg','/images/stockRed4.svg','/images/stockRed5.svg'];
-    var chartImageNeg = randomImageNeg[Math.floor(Math.random()*randomImagePos.length)];
-
-    if (priceChange > 0) {
-        chartImage = chartImagePos;
-        $('.percentageP__crypto').css('color', 'var(--colorGreen');
-        $('.percentageP__crypto').css('background-color', 'var(--colorGreenLight');
-    } else {
-        chartImage = chartImageNeg;
-        $('.percentageP__crypto').css('color', 'var(--colorRed');
-        $('.percentageP__crypto').css('background-color', 'var(--colorRedLight');
-    }
-
-    // 🔝 Resolver este problema, colocar esta função na pagina TrendingCryptoBlock.js provavelmente resolve 🔝
-
-
   return (
     <div className='blockCrypto__main'>
         <div className='blockCrypto__header'>
