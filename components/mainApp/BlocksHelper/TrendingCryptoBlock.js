@@ -6,14 +6,13 @@ import CryptoTrend from './BlocksHelper/CryptoTrend'
 const TrendingCryptoBlock = () => {
 
     var randonPhraseString = [
-      "Its the perfect time to buy some Bitcoin!  🪙",
+      "Its the perfect time to buy some Bitcoin!  ✅",
       "Check some of the Ethereum news to learn more. 📝",
       "Always do your research before investing! 🧠",
       "Today's Crypto Market is fire! 🔥",
       "You should learn some of the DEFI world 😉",
       "Did you know you can play video games and earn crypto? 🤯",
       "Are you IN our OUT of Ethereum the POW? 🤔",
-      "We are powered by coingecko, please god don't leed them to bankruptcy 🙏"
     ];
 
     const [randomPhrase, setRandomPhrase] = useState();

@@ -1,7 +1,7 @@
 import '../styles/App.css'
 import '../styles/navbar.css'
-import '../styles/topbar.css'
-import '../styles/trendingCrypto.css'
+import '../styles/contentMain.css'
+import '../styles/crypto.css'
 import '../styles/signin.css'
 import '../config/Firebase.js'
 

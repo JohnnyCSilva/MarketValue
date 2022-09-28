@@ -1,97 +1,80 @@
-.navBar__content{
+.main__header{
     width: 100%;
+    height: 100px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: space-evenly;
+    background-color: var(--appBackgroundHover);
 }
-.navBar__logo>img{
-    margin: 25px 0; 
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-}
-.navBar__logo>img:hover{
-    transform: rotate(359deg) scale(0.9);
-}
-
-/* NAVBAR LINKS */
-
-
-.navBar__links{
-    height: 33%;
+.navbar__container{
+    width: 80%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    margin: 50px 0;
+    justify-content: space-between;
+    align-items: center;
 }
-.navBar__links>a{
-    border-radius: 10px;
-    margin: 5px 0;
-    padding: 21px 23px 20px 23px;
+.navbar__brand>a{
     text-decoration: none;
+    color: var(--appText);
+    font-family: var(--appFont);
     font-size: 17px;
-    border-radius: 15px;
-    color: var(--appTextNoHover);
-    transition: 0.2s ease-in-out;
+    font-weight: bold;
+    letter-spacing: 3px;
+    transition: all 0.2s ease-in-out;
 }
-.navBar__links>a:hover{
-    transform: scale(0.9);
-    background-color: var(--mainColorHover);
-    color: var(--mainColor); 
-}
-.navBar__links>a>i{
-    transition: 0.2s ease-in-out;
-}
-.navBar__links>a.activeDesktop{
-    background-color: var(--mainColorHover);
-    border-radius: 15px;
+.navbar__brand>a:hover{
     color: var(--mainColor);
 }
-.navBar__links>a.activeDesktop>i{
-    transform: rotate(45deg);
+.navbar__menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
-/* RESPONSIVE SIDEBAR */
-
-.navBar__Responsivive{
-    display: none;
-}
-.navBar__Responsivive>a{
-    border-radius: 10px;
-    margin: 5px 0;
-    padding: 21px 23px 20px 23px;
+.navbar__menu>a{
     text-decoration: none;
-    font-size: 17px;
-    border-radius: 15px;
-    color: var(--appTextNoHover);
-    transition: 0.2s ease-in-out;
+    color: var(--appText);
+    font-family: var(--appFont);
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0px 25px;  
+    text-align: center; 
+    transition: all 0.2s ease-in-out;
 }
-.navBar__Responsivive>a:hover{
-    transform: scale(0.9);
-    background-color: var(--mainColorHover);
-    color: var(--mainColor);
-    transition: 0.2s ease-in-out;
-}
-.navBar__Responsivive>a>i{
-    transition: 0.2s ease-in-out;
-}
-.navBar__Responsivive>a>i:hover{
-}
-.navBar__Responsivive>a.activeTopBar{
-    background-color: var(--mainColorHover);
+.navbar__menu>a:hover{
     color: var(--mainColor);
 }
-
-/* Responsive */
-
-@media only screen and (max-width:784px){
-    .navBar__Responsivive{
-        vertical-align: bottom;
-        top: 100%;
-        display: flex;
-        flex-direction: column;
-
-    }
+.navbar__account{
+    display: flex;
+    justify-content: space-between;
+}
+.navbar__signIn{
+    font-family: var(--appFont);
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px 30px;
+    border-radius: 50px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.navbar__signUp{
+    cursor: pointer;
+    font-family: var(--appFont);
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px 30px;
+    border-radius: 50px;
+    border: none;
+    background-color: var(--mainColor);
+    color: var(--appTextHover);
+    border: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+.navbar__signIn:hover{
+    color: var(--mainColor);
+}
+.navbar__signUp:hover{
+    color: var(--mainColor);
+    border: 2px solid var(--mainColor);
+    background-color: transparent;
 }

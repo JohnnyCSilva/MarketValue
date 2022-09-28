@@ -1,8 +1,7 @@
 import Head from 'next/head'
-import NavBarDesktop from '../components/NavBar/NavBarDesktop';
-import NavBarMobile from '../components/NavBar/NavBarMobile';
-import TopBar from '../components/mainApp/TopBar';
-import TrendingCryptoBlock from '../components/mainApp/TrendingCryptoBlock';
+import NavBar from '../components/NavBar/NavBar'
+import ContentMain from '../components/HomePage/ContentMain'
+
 
 export default function Home() {
   return (
@@ -14,16 +13,14 @@ export default function Home() {
         <link rel="icon" href="/images/favicon.svg" />
       </Head>
 
-      <div className='App__Header'>
-          <NavBarDesktop />
-          <NavBarMobile />
+      <div className='App__NavBar'>
+        <NavBar />
       </div>
-      <div className="App__Content">
 
-          <TopBar />
-          <TrendingCryptoBlock />
-
+      <div className='App__Content'>
+        <ContentMain />
       </div>
+      
     </div>
   )
 }
