@@ -80,22 +80,21 @@
     font-size: 10px;
 }
 .crypto__section1__row__container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    margin-top: 25px;
+    width: 100%;
 }
-.crypto__section1__row__container>a{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-family: var(--appFont);
-    text-decoration: none;
-    color: var(--appText);
-    border-radius: 15px;
-    margin: 5px;
-    background-color: var(--appBackgroundHover);
-    width: 360px;
-    height: 260px;
+.crypto-badge{
+    border-radius: 2px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+}
+.crypto-badge.value-positive{
+    background: var(--colorGreenLight);
+    color: var(--colorGreen);
+}
+.crypto-badge.value-negative{
+    background: var(--colorRedLight);
+    color: var(--colorRed);
 }

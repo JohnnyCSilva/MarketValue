@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import CryptoTable from './CryptoTable';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
 
 const Section1 = () => {
 
@@ -21,10 +23,10 @@ const Section1 = () => {
     },[]);
 
     const [coins, setCoins] = useState([]);
-    const [search, setSearch] = useState('');
+    const [filters1, setFilters1] = useState(null);
+    const [globalFilterValue1, setGlobalFilterValue1] = useState('');
+    const [price24h_change, setPrice24h_change] = useState('');
     
-<coingecko-coin-price-marquee-widget  coin-ids="bitcoin,ethereum,solana,cardano,polkadot,crypto-com-chain,binancecoin" currency="eur" background-color="#ffffff" locale="pt" font-color="#000000"></coingecko-coin-price-marquee-widget>
-
     useEffect(() => {
       axios
         .get(
@@ -36,13 +38,57 @@ const Section1 = () => {
         })
             .catch(error => console.log(error));
     }, []);
-    const handleChange = e => {
-        setSearch(e.target.value);
-      };
-    
-      const filteredCoins = coins.filter(coin =>
-        coin.name.toLowerCase().includes(search.toLowerCase())
-      );
+
+    useEffect(() => {
+        initFilters1();
+    }, []);
+
+    const initFilters1 = () => {
+        setFilters1({
+            'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
+            'name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+            'current_price': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+            'representative': { value: null, matchMode: FilterMatchMode.IN },
+            'price_change_percentage_24h': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
+            'market_cap': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
+            'total_volume': { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
+        });
+        setGlobalFilterValue1('');
+    }
+
+    const onGlobalFilterChange1 = (e) => {
+        const value = e.target.value;
+        let _filters1 = { ...filters1 };
+        _filters1['global'].value = value;
+
+        setFilters1(_filters1);
+        setGlobalFilterValue1(value);
+    }
+
+    const imageBodyTemplate = (rowData) => {
+        return <img src={`${rowData.image}`} style={{width: '25px', borderRadius: '50px'}} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={rowData.image} className="product-image" />;
+    }
+    const formatCurrency = (value) => {
+        return value.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' });
+    }
+    const formatPercentage = (value) => {
+        return value.toLocaleString('default', { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2,});
+    }
+    const priceBodyTemplate = (rowData) => {
+        return formatCurrency(rowData.current_price);
+    }
+    const market_capBodyTemplate = (rowData) => {
+        return formatCurrency(rowData.market_cap);
+    }
+
+    const percentageBodyTemplate = (rowData) => {
+        if (rowData.price_change_percentage_24h <= 0 ) {
+            setPrice24h_change('negative')
+        } else if (rowData.price_change_percentage_24h > 0 ){
+            setPrice24h_change('positive')
+        }
+        return <span className={`crypto-badge value-${price24h_change}`}>{rowData.price_change_percentage_24h}</span>;
+    }
 
   return (
     <div className="crypto__section1__container">
@@ -58,7 +104,7 @@ const Section1 = () => {
             <div className="crypto__section1__search">
                 <div className="crypto__section1__search__container">
                     <i className='pi pi-search' />
-                    <input type='text' placeholder='Search for a Crypto Currency' onChange={handleChange}/>
+                    <input type='text' placeholder='Search for a Crypto Currency' value={globalFilterValue1} onChange={onGlobalFilterChange1}/>
                 </div>
                 <div className="crypto__section1__powered_section">
                     <img src="/images/coingecko.png" alt=""/>
@@ -66,7 +112,33 @@ const Section1 = () => {
                 </div>
             </div>
             <div className='crypto__section1__row__container'>
-                {filteredCoins?.map((coin) => (
+            <DataTable value={coins}
+             style={{ fontFamily: 'var(--appFont)', border: 'none'}}
+             removableSort
+             responsiveLayout="scroll"
+             paginator
+             rows={15}
+             filters={filters1}
+             emptyMessage="Crypto Currency not Found"
+             globalFilterFields={['name','current_price','price', 'change_percentage_24h', 'market_cap', 'total_volume']}
+            > 
+
+                <Column field="image" body={imageBodyTemplate} header=""></Column>
+                <Column field="name" header="Name" sortable></Column>
+                <Column field="current_price" body={priceBodyTemplate} header="Price" sortable></Column>
+                <Column field="price_change_percentage_24h" header="24h" body={percentageBodyTemplate}></Column>
+                <Column field="market_cap" body={market_capBodyTemplate} header="MarketCap" sortable></Column>
+                <Column field="total_volume" header="Volume" ></Column>
+                
+            </DataTable>
+            </div>
+    </div>
+  )
+}
+
+
+/*
+{filteredCoins?.map((coin) => (
                     <CryptoTable
                         key={coin.id}
                         name={coin.name}
@@ -77,10 +149,6 @@ const Section1 = () => {
                         image={coin.image}
                         priceChange={coin.price_change_percentage_24h}
                     />
-                ))}
-            </div>
-    </div>
-  )
-}
+                ))}*/
 
 export default Section1
