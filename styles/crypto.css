@@ -98,3 +98,14 @@
     background: var(--colorRedLight);
     color: var(--colorRed);
 }
+.cryptoSymbol{
+    font-weight: 700;
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+/* TABLE CUSTOMIZATIONS */
+
+.p-datatable .p-datatable-tbody > tr > td{
+    border: 1px solid transparent !important;
+}

@@ -34,7 +34,6 @@ const Section1 = () => {
           )
         .then(res => {
             setCoins(res.data);
-            console.log(res.data);
         })
             .catch(error => console.log(error));
     }, []);
@@ -80,6 +79,10 @@ const Section1 = () => {
     const market_capBodyTemplate = (rowData) => {
         return formatCurrency(rowData.market_cap);
     }
+    const cryptocurrencyTemplate = (rowData) => {
+
+        return rowData.name + " -  " +  rowData.symbol;
+    }
 
     const percentageBodyTemplate = (rowData) => {
         if (rowData.price_change_percentage_24h <= 0 ) {
@@ -124,9 +127,9 @@ const Section1 = () => {
             > 
 
                 <Column field="image" body={imageBodyTemplate} header=""></Column>
-                <Column field="name" header="Name" sortable></Column>
+                <Column field="name" header="Name" body={cryptocurrencyTemplate} sortable></Column>
                 <Column field="current_price" body={priceBodyTemplate} header="Price" sortable></Column>
-                <Column field="price_change_percentage_24h" header="24h" body={percentageBodyTemplate}></Column>
+                <Column header="24h" body={percentageBodyTemplate}></Column>
                 <Column field="market_cap" body={market_capBodyTemplate} header="MarketCap" sortable></Column>
                 <Column field="total_volume" header="Volume" ></Column>
                 
