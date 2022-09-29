@@ -27,8 +27,8 @@ const NavBar = () => {
                 </a>
             </div>
             <div className='navbar__account'>
-                <button className='navbar__signIn'>Sign In</button>
-                <button className='navbar__signUp'>Sign Up</button>
+                <a href="" className='navbar__signIn'>Sign In</a>
+                <a href="/SignUp" className='navbar__signUp'>Sign Up</a>
             </div>
         </div>
     </div>

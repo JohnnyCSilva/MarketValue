@@ -47,6 +47,8 @@
     justify-content: space-between;
 }
 .navbar__signIn{
+    text-decoration: none;
+    color: var(--appText);
     font-family: var(--appFont);
     font-size: 14px;
     font-weight: bold;
@@ -58,6 +60,7 @@
     transition: all 0.2s ease-in-out;
 }
 .navbar__signUp{
+    text-decoration: none;
     cursor: pointer;
     font-family: var(--appFont);
     font-size: 14px;

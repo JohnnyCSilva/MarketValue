@@ -1,0 +1,187 @@
+.SignUp__content{
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--appBackground);
+}
+.SignUp__container{
+    width: 390px;
+    height: 710px;
+    background-color: var(--appBackgroundHover);
+    border-radius: 15px;
+    padding: 60px;
+}
+.SignUp__confirm{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+.SignUp__confirm>img{
+    margin-bottom: 20px;
+}
+.SignUp__confirm>h1{
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--appText);
+    margin: 30px 0;
+    font-family: var(--appFont);
+}
+.SignUp__confirm>p{
+    font-size: 15px;
+    color: var(--appText);
+    font-family: var(--appFont);
+    margin-bottom: 50px;
+}
+.confirm__arrow{
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.confirm__arrow>button{
+    font-size: 15px;
+    color: var(--appTextHover);
+    font-family: var(--appFont);
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+    border: none;
+    border: 2px solid transparent;
+    background-color: var(--mainColor);
+    border-radius: 50px;
+    transition: all 0.2s ease-in-out;
+}
+.confirm__arrow>button>i{
+    vertical-align: middle;
+}
+.confirm__arrow>button:hover{
+    border: 2px solid var(--mainColor);
+    color: var(--mainColor);
+    background-color: transparent;
+}
+.confirm__arrow>a{
+    margin-right: 20px;
+    font-size: 15px;
+    color: var(--appText);
+    font-family: var(--appFont);
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+.confirm__arrow>a:hover{
+    color: var(--mainColor);
+}
+
+/* SECOND PHASE */
+
+
+
+#form_Container{
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    transition: all 0.2s ease-in-out;
+}
+.SignUp__form{
+    width: 390px;
+    height: 710px;
+    background-color: var(--appBackgroundHover);
+    border-radius: 15px;
+    padding: 60px;
+}
+.SignUp__form>img{
+    width: 100%;;
+    margin-bottom: 20px;
+}
+.SignUp__form>h1{
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--appText);
+    margin: 30px 0;
+    font-family: var(--appFont);
+}
+.form__SignUp{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.input_field{
+    width: 100%;
+    margin:5px 0;
+    padding: 0 20px;
+    background-color: var(--appBackground);
+    border-radius: 15px;
+    color: var(--secondaryColor);
+    vertical-align: middle;
+}
+.input_field>input{
+    color: var(--secondaryColor);
+    border:none;
+    outline: none;
+    font-family: var(--appFont);
+    padding-left: 10px;
+    width: 90%;
+    height: 40px;
+    margin:10px 0;
+    background-color: var(--appBackground);
+}
+.input_field>i{
+    vertical-align: middle;
+}
+.form__SignUp>button{
+    cursor: pointer;
+    margin: 10px 0;
+    width: 100%;
+    height: 50px;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    background-color: var(--mainColor);
+    color: var(--appTextHover);
+    font-size: 15px;
+    font-family: var(--appFont);
+    transition: all 0.2s ease-in-out;
+}
+.form__SignUp>button:hover{
+    border: 2px solid var(--mainColor);
+    background-color: transparent;
+    color: var(--mainColor);
+}
+.Divider{
+    text-align: center;
+    font-family: var(--appFont);
+    font-size: 14px;
+}
+.google_SignUp{
+    margin:10px 0;
+    width: 100%;
+    height: 50px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.google_SignUp>img{
+    height: 20px;
+    padding-right: 10px;
+}
+.google_SignUp>p{
+    font-family: var(--appFont);
+    color: var(--appTextNoHover);
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+.google_SignUp:hover{
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}

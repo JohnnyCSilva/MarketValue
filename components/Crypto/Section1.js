@@ -22,6 +22,8 @@ const Section1 = () => {
 
     const [coins, setCoins] = useState([]);
     const [search, setSearch] = useState('');
+    
+<coingecko-coin-price-marquee-widget  coin-ids="bitcoin,ethereum,solana,cardano,polkadot,crypto-com-chain,binancecoin" currency="eur" background-color="#ffffff" locale="pt" font-color="#000000"></coingecko-coin-price-marquee-widget>
 
     useEffect(() => {
       axios
@@ -52,6 +54,7 @@ const Section1 = () => {
                 {randomPhrase}
                 </p>
             </div>
+
             <div className="crypto__section1__search">
                 <div className="crypto__section1__search__container">
                     <i className='pi pi-search' />
