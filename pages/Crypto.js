@@ -3,6 +3,7 @@ import Head from 'next/head'
 
 import NavBar from '../components/NavBar/NavBar'
 import ContentMain from '../components/Crypto/ContentMain'
+import MobileNav from '../components/NavBar/MobileNav'
 
 const Crypto = () => {
   return (
@@ -16,6 +17,7 @@ const Crypto = () => {
 
         <div className='App__NavBar'>
             <NavBar />
+            <MobileNav />
         </div>
 
         <div className='App__Content'>

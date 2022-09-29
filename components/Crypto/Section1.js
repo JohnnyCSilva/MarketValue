@@ -3,11 +3,13 @@ import axios from 'axios'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { classNames } from 'primereact/utils';
+
 
 const Section1 = () => {
 
     var randonPhraseString = [
-        "Its the perfect time to buy some Bitcoin!  🪙",
+        "Its the perfect time to buy some Bitcoin! ⭐",
         "Check some of the Ethereum news to learn more. 📝",
         "Always do your research before investing! 🧠",
         "Today's Crypto Market is fire! 🔥",
@@ -25,12 +27,11 @@ const Section1 = () => {
     const [coins, setCoins] = useState([]);
     const [filters1, setFilters1] = useState(null);
     const [globalFilterValue1, setGlobalFilterValue1] = useState('');
-    const [price24h_change, setPrice24h_change] = useState('');
     
     useEffect(() => {
       axios
         .get(
-          'https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+          'https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=150&sparkline=false'
           )
         .then(res => {
             setCoins(res.data);
@@ -70,28 +71,36 @@ const Section1 = () => {
     const formatCurrency = (value) => {
         return value.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' });
     }
-    const formatPercentage = (value) => {
-        return value.toLocaleString('default', { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2,});
-    }
     const priceBodyTemplate = (rowData) => {
         return formatCurrency(rowData.current_price);
     }
     const market_capBodyTemplate = (rowData) => {
         return formatCurrency(rowData.market_cap);
     }
+    const volumeBodyTemplate = (rowData) => {
+        return formatCurrency(rowData.total_volume);
+    }
+        
     const cryptocurrencyTemplate = (rowData) => {
 
-        return rowData.name + " -  " +  rowData.symbol;
+        return rowData.name + " - " +  rowData.symbol;
     }
 
     const percentageBodyTemplate = (rowData) => {
-        if (rowData.price_change_percentage_24h <= 0 ) {
-            setPrice24h_change('negative')
-        } else if (rowData.price_change_percentage_24h > 0 ){
-            setPrice24h_change('positive')
-        }
-        return <span className={`crypto-badge value-${price24h_change}`}>{rowData.price_change_percentage_24h}</span>;
+        const percentageChanged = classNames({
+            'negative': rowData.price_change_percentage_24h < 0,
+            'positive': rowData.price_change_percentage_24h > 0
+        });
+
+        rowData.price_change_percentage_24h
+
+        return (
+            <div className={percentageChanged}>
+                {(rowData.price_change_percentage_24h).toFixed(2)}%
+            </div>
+        );
     }
+
 
   return (
     <div className="crypto__section1__container">
@@ -126,32 +135,16 @@ const Section1 = () => {
              globalFilterFields={['name','current_price','price', 'change_percentage_24h', 'market_cap', 'total_volume']}
             > 
 
-                <Column field="image" body={imageBodyTemplate} header=""></Column>
+                <Column body={imageBodyTemplate} header=""></Column>
                 <Column field="name" header="Name" body={cryptocurrencyTemplate} sortable></Column>
                 <Column field="current_price" body={priceBodyTemplate} header="Price" sortable></Column>
-                <Column header="24h" body={percentageBodyTemplate}></Column>
+                <Column header="24h" body={percentageBodyTemplate} sortable></Column>
+                <Column field="total_volume" body={volumeBodyTemplate} header="Volume"></Column>
                 <Column field="market_cap" body={market_capBodyTemplate} header="MarketCap" sortable></Column>
-                <Column field="total_volume" header="Volume" ></Column>
-                
             </DataTable>
             </div>
     </div>
   )
 }
-
-
-/*
-{filteredCoins?.map((coin) => (
-                    <CryptoTable
-                        key={coin.id}
-                        name={coin.name}
-                        price={coin.current_price}
-                        symbol={coin.symbol}
-                        marketcap={coin.total_volume}
-                        volume={coin.market_cap}
-                        image={coin.image}
-                        priceChange={coin.price_change_percentage_24h}
-                    />
-                ))}*/
 
 export default Section1

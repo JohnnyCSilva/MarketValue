@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import NavBar from '../components/NavBar/NavBar'
 import ContentMain from '../components/HomePage/ContentMain'
+import MobileNav from '../components/NavBar/MobileNav'
+
 
 
 export default function Home() {
@@ -15,6 +17,7 @@ export default function Home() {
 
       <div className='App__NavBar'>
         <NavBar />
+        <MobileNav />
       </div>
 
       <div className='App__Content'>

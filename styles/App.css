@@ -30,6 +30,9 @@
   opacity: 1; 
 }
 
+.active{
+  color: var(--mainColor);
+}
 
 /* APP */
 

@@ -98,7 +98,7 @@
     padding: 60px;
 }
 .SignUp__form>img{
-    width: 100%;;
+    width: 100%;
     margin-bottom: 20px;
 }
 .SignUp__form>h1{
@@ -182,4 +182,23 @@
 }
 .google_SignUp:hover{
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* RESPONSIVE */
+
+@media only screen and (max-width: 470px) {
+    .SignUp__container{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .SignUp__form{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
 }

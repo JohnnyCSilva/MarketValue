@@ -83,19 +83,11 @@
     margin-top: 25px;
     width: 100%;
 }
-.crypto-badge{
-    border-radius: 2px;
-    padding: 5px 10px;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-}
-.crypto-badge.value-positive{
-    background: var(--colorGreenLight);
+
+.positive{
     color: var(--colorGreen);
 }
-.crypto-badge.value-negative{
-    background: var(--colorRedLight);
+.negative{
     color: var(--colorRed);
 }
 .cryptoSymbol{
@@ -108,4 +100,31 @@
 
 .p-datatable .p-datatable-tbody > tr > td{
     border: 1px solid transparent !important;
+}
+
+/* RESPONSIVE */
+
+@media only screen and (max-width: 1190px) {
+    .crypto__section1__container{
+        width: 95%;
+    }
+    .crypto__section1__header{
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .crypto__section1__search{
+        width: 100%;
+    }
+    .crypto__section1__search__container{
+        width: 80%;
+    }
+
+}
+
+@media only screen and (max-width: 470px) {
+    .crypto__section1__search__container{
+        width: 95%;
+    }
 }

@@ -2,7 +2,6 @@ import '../styles/App.css'
 import '../styles/navbar.css'
 import '../styles/contentMain.css'
 import '../styles/crypto.css'
-import '../styles/signin.css'
 import '../styles/signUp.css'
 import '../config/Firebase.js'
 
