@@ -5,6 +5,7 @@ import { Column } from 'primereact/column';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { classNames } from 'primereact/utils';
 
+import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 const Section1 = () => {
 
@@ -31,7 +32,7 @@ const Section1 = () => {
     useEffect(() => {
       axios
         .get(
-          'https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=150&sparkline=false'
+          'https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=150&page=1&sparkline=true'
           )
         .then(res => {
             setCoins(res.data);
@@ -101,6 +102,20 @@ const Section1 = () => {
         );
     }
 
+    
+    const renderSparkLine = (rowData) => {
+        
+        var chartColor = "";
+        if (rowData.price_change_percentage_24h < 0) {
+            chartColor = "var(--colorRed)";
+        }else {
+            chartColor = "var(--colorGreen)";
+        }
+
+        return <Sparklines data={rowData.sparkline_in_7d.price} >
+                <SparklinesLine color={chartColor} />
+               </Sparklines>;
+    }
 
   return (
     <div className="crypto__section1__container">
@@ -141,6 +156,9 @@ const Section1 = () => {
                 <Column header="24h" body={percentageBodyTemplate} sortable></Column>
                 <Column field="total_volume" body={volumeBodyTemplate} header="Volume"></Column>
                 <Column field="market_cap" body={market_capBodyTemplate} header="MarketCap" sortable></Column>
+                <Column body={renderSparkLine} header="Last 7 days"></Column>
+                
+                
             </DataTable>
             </div>
     </div>
