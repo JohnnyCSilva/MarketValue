@@ -117,6 +117,9 @@ const Section1 = () => {
                </Sparklines>;
     }
 
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
+
   return (
     <div className="crypto__section1__container">
             <div className="crypto__section1__header">
@@ -145,6 +148,9 @@ const Section1 = () => {
              responsiveLayout="scroll"
              paginator
              rows={15}
+             selectionMode="single" 
+             selection={selectedProduct} 
+             onSelectionChange={e => setSelectedProduct(e.value)} dataKey="name"
              filters={filters1}
              emptyMessage="Crypto Currency not Found"
              globalFilterFields={['name','current_price','price', 'change_percentage_24h', 'market_cap', 'total_volume']}

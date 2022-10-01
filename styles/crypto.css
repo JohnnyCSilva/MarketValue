@@ -102,6 +102,13 @@
     border: 1px solid transparent !important;
 }
 
+.p-datatable .p-datatable-tbody > tr.p-highlight{
+    color: var(--mainColor) !important;
+}
+.p-datatable.p-datatable-selectable .p-datatable-tbody > tr.p-selectable-row:focus{
+    outline: none !important;
+}
+
 /* RESPONSIVE */
 
 @media only screen and (max-width: 1190px) {

@@ -19,6 +19,7 @@ function AuthScreen() {
       <button onClick={logOut}>Log Out</button>
       <pre>
         {JSON.stringify(user, null, 2)}
+        {console.log(user)}
       </pre>
     </div>
   );
