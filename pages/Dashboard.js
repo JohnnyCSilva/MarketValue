@@ -1,10 +1,11 @@
 import React from 'react'
-import ContentMain from '../components/Crypto/ContentMain'
+import ContentMain from '../components/Dashboard/ContentMain'
 
-const Crypto = () => {
+
+const Dashboard = () => {
   return (
     <div>
-
+    
         <div className='App__Content'>
             <ContentMain />
         </div>
@@ -13,4 +14,4 @@ const Crypto = () => {
   )
 }
 
-export default Crypto
+export default Dashboard

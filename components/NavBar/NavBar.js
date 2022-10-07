@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Dialog } from 'primereact/dialog';
 import { SlideMenu } from 'primereact/slidemenu';
+import { UserContext } from '../../config/context'
 
 
 
 const NavBar = () => {
+
+    const { user, username } = useContext(UserContext)
 
     const items = [
         {
@@ -129,87 +132,54 @@ const NavBar = () => {
                    <p> Learn </p>
                 </a>
             </div>
+            
+             {// user is signed-in and has username 
+                username && (
+                <>
+                    <div className='navbar__account'>
+                        <i className="pi pi-user" onClick={() => onClick('displayBasic')}></i>
+                        
+                    </div>
+                </>
+            )}
+            
+            {/* user is not signed OR has not created username */
+            !username && (
             <div className='navbar__account'>
                 <i className='pi pi-user' onClick={() => onClick('displayBasic')}></i>
                 <a href="/SignUp" className='navbar__signUp'>Sign Up</a>
             </div>
+            )}
         </div>
 
         <Dialog visible={displayBasic} closable={false} dismissableMask={true}  style={{ minWidth: "350px" }} className="profile__main" draggable={false} breakpoints={{'960px': '75vw', '640px': '100vw'}}  onHide={() => onHide('displayBasic')}>
-            <div className='profile__popup'>
-                <img src="/images/favicon.svg" alt='' />
-                <p>UserName</p>
-                <a href="#" className='navbar__signUp'>Sign In</a>
-            </div>
-            
+            {username && (
 
+                <div className="profile__User">
+                    <img src="/images/favicon.svg" alt="" />
+                    <div className='profile__user__name'>
+                        <h3>Hello, {username}</h3>
+                        <a href="/">View my profile</a>
+                    </div>
+                </div>
+            )}
+            {!username && (
+
+                <div className="profile__popup__main">
+                    <a href="/SignIn" className="sign__in">Sign In</a>
+                    <a href="/SignUp" className="sign__up">Sign Up</a>
+                </div>
+                )}
+
+            <div className="separator"></div>
+            
             <div className='profile__links'>
                 <SlideMenu style={{width: "100%", border: "none", fontSize: "15px", fontFamily: "var(--appFont)"}} model={items} menuWidth={300}  viewportHeight={305}/>
             </div>
         </Dialog>    
-
-        {/* 
-        <a href="/" className="profile__link">
-                    <i className='pi pi-book'></i>
-                    <p>Learn</p>
-                </a>
-                <a href="/" className="profile__link">
-                    <i className='pi pi-wrench'></i>
-                    <p>Tools</p>
-                </a>
-                <a href="/" className="profile__link">
-                    <i className='pi pi-cog'></i>
-                    <p>Settings</p>
-                /a>
-                <PanelMenu model={items} style={{ width: "22rem" }} />
-                
-                <a href="/" className="profile__link">
-                    <i className='pi pi-question-circle'></i>
-                    <p>Help Center</p>
-                </a>
-                <a href="/" className="profile__link">
-                    <i className='pi pi-sign-out'></i>
-                    <p>Log Out</p>
-                </a>    
-        */}
 
     </div>
   )
 }
 
 export default NavBar
-
-
-
-/* <a href="/" className="profile__link">
-                    <i className='pi pi-chart-pie'></i>
-                    <p>Portfolio</p>
-                </a>
-                <a href="/" className="profile__link">
-                    <i className='pi pi-star'></i>
-                    <p>Watchlist</p>
-                </a>
-                <a href="/" className="profile__link">
-                    <i className='pi pi-book'></i>
-                    <p>Learn</p>
-                </a>
-                <a href="/" className="profile__link">
-                    <i className='pi pi-wrench'></i>
-                    <p>Tools</p>
-                </a>
-                <a href="/" className="profile__link">
-                    <i className='pi pi-cog'></i>
-                    <p>Settings</p>
-                /a>
-                <PanelMenu model={items} style={{ width: "22rem" }} />
-                
-                <a href="/" className="profile__link">
-                    <i className='pi pi-question-circle'></i>
-                    <p>Help Center</p>
-                </a>
-                <a href="/" className="profile__link">
-                    <i className='pi pi-sign-out'></i>
-                    <p>Log Out</p>
-                </a>
-
-                */

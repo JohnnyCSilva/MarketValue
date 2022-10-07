@@ -51,6 +51,7 @@
 .navbar__account{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .navbar__signIn{
     text-decoration: none;
@@ -159,56 +160,54 @@
 
 /* ICON CLICK */
 
-.profile__popup{
+.profile__User{
     display: flex;
     flex-direction: row;
     justify-content: left;
     align-items: center;
-    margin-bottom:  50px;
+    margin: 0 20px;
 }
-.profile__popup>img{
-    height: 40px;
-    width: 40px;
-    margin: 0 10px
-}
-.profile__popup>p{
-    font-size: 20px;
-    color: var(--mainColor);
-    font-family: var(--appFont);
-    margin: 0 15px
-}
-
-.profile__links{
-    margin: 20px 0;
-}
-.profile__links>a{
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center;
-    padding: 10px;
-    margin: 5px;
-    font-family: var(--appFont);
-    font-size: 17px;
-    color: var(--secondaryColor);
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-    
-}
-.profile__links>a>i{
+.profile__User>img{
+    width: 50px;
     margin-right: 15px;
+}
+
+.profile__popup__main{
+    display: flex;   
+}
+.profile__popup__main>a{
+    font-family: var(--appFont); 
+    padding: 15px;
+    width: 100%;
+    margin: 5px;
+    border-radius: 50px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
     transition: all 0.2s ease-in-out;
 }
-
-.profile__links>a:hover{
-    color: var(--mainColor)
+.profile__popup__main>.sign__in{
+    border: 2px solid var(--mainColor);
+    color: var(--mainColor);
 }
-.profile__links>a:hover>i{
-    transform: rotate(-10deg);
+.profile__popup__main>.sign__in:hover{
+    border: 2px solid var(--mainColor);
+    color: var(--mainColor);
+}
+.profile__popup__main>.sign__up{
+    display: none;
+    border: 2px solid var(--mainColor);
+    background-color: var(--mainColor);
+    color: var(--appTextHover);
 }
 
-.hr__styles{
-    border-top: 1px solid var(--appLine)
+.profile__user__name>h3{
+    font-family: var(--appFont);
+}
+.profile__user__name>a{
+    font-family: var(--appFont);
+    font-size: 13px;
+    color: var(--mainColor);
 }
 
 .p-slidemenu .p-menuitem-link .p-menuitem-text, .p-slidemenu .p-menuitem-link .p-menuitem-icon{
@@ -268,6 +267,9 @@
 @media only screen and (max-width: 470px){
     .navbar__signUp{
         display: none;
+    }
+    .profile__popup__main>.sign__up{
+        display: block;
     }
     .navbar__brand__link>img{
         margin-left: 5px;

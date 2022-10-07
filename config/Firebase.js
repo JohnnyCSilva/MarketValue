@@ -1,6 +1,8 @@
-import { initializeApp, getApp, getApps} from "firebase/app";
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import 'firebase/compat/storage';
 
-let app;
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -11,10 +13,13 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-if (getApps().length){
-  app = getApp();
-} else {
-  app = initializeApp(firebaseConfig);
-}
 
-export default app;
+const app = firebase.initializeApp(firebaseConfig);
+
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+export const storage = firebase.storage();
+
+export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+
