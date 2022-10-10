@@ -1,11 +1,7 @@
-import React, { useState, useContext } from 'react'
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { UserContext } from '../config/context'
-import { auth, googleAuthProvider } from '../config/Firebase';
+import React, { useState } from 'react'
 
 const SignIn = () => {
 
-  const { user, username } = useContext(UserContext)
 
   const showPassword = () => {
     var password = document.getElementById('password');
@@ -40,10 +36,6 @@ const SignIn = () => {
     user = email;
   }
 
-  const signInWithGoogle = async () => {
-    await auth.signInWithPopup(googleAuthProvider);
-  };
-
   return (
     <div className="main__signUp">
       <div className="container__signUn__left">
@@ -77,7 +69,7 @@ const SignIn = () => {
             </form>
           </div>
           <div className="signUp__after">
-            <p> Dont have an account? <a href="/">Create Here</a></p>
+            <p> Dont have an account? <a href="/SignUp">Create Here</a></p>
           </div>
         </div>
       </div>

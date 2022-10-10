@@ -1,13 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Dialog } from 'primereact/dialog';
 import { SlideMenu } from 'primereact/slidemenu';
-import { UserContext } from '../../config/context'
-
-
 
 const NavBar = () => {
 
-    const { user, username } = useContext(UserContext)
+    const [user , setUser] = useState(null);
 
     const items = [
         {
@@ -102,10 +99,6 @@ const NavBar = () => {
         dialogFuncMap[`${name}`](false);
     }
 
-
-    
-
-
   return (
     <div className='main__header'>
         <div className='navbar__container'>
@@ -134,7 +127,7 @@ const NavBar = () => {
             </div>
             
              {// user is signed-in and has username 
-                username && (
+                user && (
                 <>
                     <div className='navbar__account'>
                         <i className="pi pi-user" onClick={() => onClick('displayBasic')}></i>
@@ -144,7 +137,7 @@ const NavBar = () => {
             )}
             
             {/* user is not signed OR has not created username */
-            !username && (
+            !user && (
             <div className='navbar__account'>
                 <i className='pi pi-user' onClick={() => onClick('displayBasic')}></i>
                 <a href="/SignUp" className='navbar__signUp'>Sign Up</a>
@@ -153,17 +146,17 @@ const NavBar = () => {
         </div>
 
         <Dialog visible={displayBasic} closable={false} dismissableMask={true}  style={{ minWidth: "350px" }} className="profile__main" draggable={false} breakpoints={{'960px': '75vw', '640px': '100vw'}}  onHide={() => onHide('displayBasic')}>
-            {username && (
+            {user && (
 
                 <div className="profile__User">
                     <img src="/images/favicon.svg" alt="" />
                     <div className='profile__user__name'>
-                        <h3>Hello, {username}</h3>
+                        <h3>Hello, {user}</h3>
                         <a href="/">View my profile</a>
                     </div>
                 </div>
             )}
-            {!username && (
+            {!user && (
 
                 <div className="profile__popup__main">
                     <a href="/SignIn" className="sign__in">Sign In</a>

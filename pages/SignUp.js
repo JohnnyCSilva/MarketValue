@@ -1,11 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { UserContext } from '../config/context'
-import { auth, googleAuthProvider } from '../config/Firebase';
+
 
 const SignUp = () => {
-
-  const { user, username } = useContext(UserContext)
 
   const showPassword = () => {
     var password = document.getElementById('password');
@@ -37,11 +34,6 @@ const SignUp = () => {
     user = registerEmail;
   }
 
-  const signInWithGoogle = async () => {
-    await auth.signInWithPopup(googleAuthProvider);
-  };
-  
-
   return (
     <div className="main__signUp">
 
@@ -52,7 +44,7 @@ const SignUp = () => {
             <p>See your growth and get consulting support!</p>
           </div>
           <div className='signUp__buttons'>
-            <div className="google" onClick={signInWithGoogle}>
+            <div className="google">
               <img src="/images/google_logo.png" alt="GoogleAuthProvider" />
               <p> Sign up with Google</p>
             </div>
@@ -81,7 +73,7 @@ const SignUp = () => {
             </form>
           </div>
           <div className="signUp__after">
-            <p> Already have an account? <a href="/">Sign In</a></p>
+            <p> Already have an account? <a href="/SignIn">Sign In</a></p>
           </div>
         </div>
       </div>
