@@ -1,7 +1,6 @@
 import React from 'react'
 import ContentMain from '../components/Dashboard/ContentMain'
 
-
 const Dashboard = () => {
   return (
     <div>

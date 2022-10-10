@@ -1,7 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth, db } from '../config/Firebase'
+import { doc, getDoc } from "firebase/firestore";
+import { Toast } from 'primereact/toast';
 
 const SignIn = () => {
 
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const toast = useRef(null) ;
+
+  const delay = ms => new Promise(res => setTimeout(res, ms));
 
   const showPassword = () => {
     var password = document.getElementById('password');
@@ -18,26 +27,32 @@ const SignIn = () => {
     }
   }
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  
 
-  const registerUser = async(e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-        })
-        .catch((error) => {
-            console.log(error)
-        });
+  const verifyUsersRegisted = async(e) => {
+    (e).preventDefault();
 
-    window.location = '/Dashboard';
-    username = email;
-    user = email;
+    const usersRef = doc(db, "users", email);
+  
+    const userExists = await getDoc(usersRef);
+
+    if (userExists.exists()){
+
+      toast.current.show({ severity: 'success', summary: 'Login Successfully!', detail: 'Account Reached! We are now redirecting you!', life: 4000 });
+
+      signInWithEmailAndPassword(auth, email, password);
+      await delay(4000);
+      window.location = '/Dashboard';
+    } else {
+      toast.current.show({ severity: 'error', summary: 'Account not Created!', detail: 'This email does not exist in our database. Please create a new account.', life: 3000 });
+    }
   }
 
   return (
     <div className="main__signUp">
+
+      <Toast ref={toast} position="bottom-left" baseZIndex="1000"/>
+
       <div className="container__signUn__left">
         <div className="signUp__form__total">
           <div className="signUp__Title">
@@ -45,7 +60,7 @@ const SignIn = () => {
             <p>Login into your account to manage your Portfolio</p>
           </div>
           <div className='signUp__buttons'>
-            <div className="google" href="" onClick={signInWithGoogle}>
+            <div className="google" href="">
               <img src="/images/google_logo.png" alt="GoogleAuthProvider" />
               <p> Sign In with Google</p>
             </div>
@@ -54,7 +69,7 @@ const SignIn = () => {
             <span>or Sign in with Email</span>
           </div>
           <div className='signUp__form'>
-            <form onSubmit={registerUser}>
+            <form onSubmit={verifyUsersRegisted}>
               <label>Email</label>
               <div className='signUp__input'>
                 <i className="pi pi-at" />

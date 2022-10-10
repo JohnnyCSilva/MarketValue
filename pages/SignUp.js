@@ -1,8 +1,43 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useRef } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-
+import { auth, db } from '../config/Firebase'
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { Toast } from 'primereact/toast';
 
 const SignUp = () => {
+
+  const [registerUsername, setUsername] = useState();
+  const [registerEmail, setRegisterEmail] = useState();
+  const [registerPassword, setRegisterPassword] = useState();
+  const toast = useRef(null) ;
+
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
+
+  const verifyUsersRegisted = async(e) => {
+    (e).preventDefault();
+
+    const usersRef = doc(db, "users", registerEmail);
+    
+    const data = {
+      username: registerUsername,
+      email: registerEmail,
+    }
+
+    const userExists = await getDoc(usersRef);
+
+    if (userExists.exists()){
+
+      toast.current.show({ severity: 'error', summary: 'Email Already in Use', detail: 'The email is already in use, please a diferent email or contact support for more information.', life: 3000 });
+
+    } else {
+      setDoc(usersRef, data);
+      createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
+      toast.current.show({ severity: 'success', summary: 'Account Created Successfully', detail: 'Account Created Successfully, we are redirecting you!', life: 4000 });
+      await delay(4000);
+      window.location = '/Dashboard';
+    }
+  }
 
   const showPassword = () => {
     var password = document.getElementById('password');
@@ -19,23 +54,10 @@ const SignUp = () => {
     }
   }
 
-  const [registerEmail, setRegisterEmail] = useState();
-  const [registerPassword, setRegisterPassword] = useState();
-
-  const registerUser = async(e) => {
-    e.preventDefault();
-    try {
-      createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
-    } catch (error) {
-      console.log(error.message);
-    }
-    window.location = '/Dashboard';
-    username = registerEmail;
-    user = registerEmail;
-  }
-
   return (
     <div className="main__signUp">
+
+      <Toast ref={toast} position="bottom-left" baseZIndex="1000"/>
 
       <div className="container__signUn__left">
         <div className="signUp__form__total">
@@ -53,11 +75,11 @@ const SignUp = () => {
             <span>or Sign in with Email</span>
           </div>
           <div className='signUp__form'>
-            <form onSubmit={registerUser}>
+            <form onSubmit={verifyUsersRegisted}>
               <label>Username</label>
               <div className='signUp__input'>
                 <i className="pi pi-user" />
-                <input type="text" name="Name" placeholder="Name" required/>
+                <input type="text" name="Name" placeholder="Name" required onChange={(event) => { setUsername(event.target.value)} }/>
               </div>
               <label>Email</label>
               <div className='signUp__input'>

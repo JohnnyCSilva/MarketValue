@@ -1,10 +1,11 @@
 import React from 'react'
+import { globalUsername } from '../../pages/SignUp.js'
 
 const ContentMain = () => {
 
   return (
     <div>
-        <h2> Welcome</h2>
+        <h2> Welcome <globalUsername></globalUsername></h2>
     </div>
   )
 }
