@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { signInWithEmailAndPassword,} from 'firebase/auth';
-import { auth, db, googleSignIn } from '../config/Firebase'
+import { auth, googleSignIn } from '../config/Firebase'
 import { Toast } from 'primereact/toast';
 import { useAuthValue } from "../config/AuthContext"
 
@@ -35,7 +35,7 @@ const SignIn = () => {
     await delay(4000);
     window.location = '/Dashboard';
 
-    //   toast.current.show({ severity: 'error', summary: 'Account not Created!', detail: 'This email does not exist in our database. Please create a new account.', life: 3000 });
+    // toast.current.show({ severity: 'error', summary: 'Account not Created!', detail: 'This email does not exist in our database. Please create a new account.', life: 3000 });
   }
   
 

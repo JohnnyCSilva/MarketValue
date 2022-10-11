@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Dialog } from 'primereact/dialog';
 import { SlideMenu } from 'primereact/slidemenu';
+import { useAuthValue } from '../../config/AuthContext'
+import { auth} from '../../config/Firebase'
+import { signOut } from 'firebase/auth';
+import { Toast } from 'primereact/toast';
+
 
 const NavBar = () => {
 
-    const [user , setUser] = useState(null);
+    const {currentUser} = useAuthValue()
+    const delay = ms => new Promise(res => setTimeout(res, ms));    
 
     const items = [
         {
@@ -82,8 +88,17 @@ const NavBar = () => {
         {
             label:'Log Out',
             icon:'pi pi-sign-out',
+            command: async() => {
+                console.log('signUserOut', currentUser);
+                signOut(auth);
+                toast.current.show({ severity: 'info', summary: 'You were logged out!', detail: 'Your account has been logged out! We are redirecting you.', life: 4000 });
+                await delay(4000);
+                window.location = '/';
+            }
         }
     ]
+
+    const toast = useRef(null) ;
 
     const [displayBasic, setDisplayBasic] = useState(false);
 
@@ -100,7 +115,10 @@ const NavBar = () => {
     }
 
   return (
-    <div className='main__header'>
+    <div className='main__header'>~
+
+    <Toast ref={toast} position="bottom-left" baseZIndex="1000"/>
+
         <div className='navbar__container'>
             <div className='navbar__brand'>
                 <a href='/' className='navbar__brand__link'>
@@ -127,7 +145,7 @@ const NavBar = () => {
             </div>
             
              {// user is signed-in and has username 
-                user && (
+                currentUser && (
                 <>
                     <div className='navbar__account'>
                         <i className="pi pi-user" onClick={() => onClick('displayBasic')}></i>
@@ -137,7 +155,7 @@ const NavBar = () => {
             )}
             
             {/* user is not signed OR has not created username */
-            !user && (
+            !currentUser && (
             <div className='navbar__account'>
                 <i className='pi pi-user' onClick={() => onClick('displayBasic')}></i>
                 <a href="/SignUp" className='navbar__signUp'>Sign Up</a>
@@ -146,17 +164,17 @@ const NavBar = () => {
         </div>
 
         <Dialog visible={displayBasic} closable={false} dismissableMask={true}  style={{ minWidth: "350px" }} className="profile__main" draggable={false} breakpoints={{'960px': '75vw', '640px': '100vw'}}  onHide={() => onHide('displayBasic')}>
-            {user && (
+            {currentUser && (
 
                 <div className="profile__User">
                     <img src="/images/favicon.svg" alt="" />
                     <div className='profile__user__name'>
-                        <h3>Hello, {user}</h3>
+                        <h3>{currentUser?.email}</h3>
                         <a href="/">View my profile</a>
                     </div>
                 </div>
             )}
-            {!user && (
+            {!currentUser && (
 
                 <div className="profile__popup__main">
                     <a href="/SignIn" className="sign__in">Sign In</a>

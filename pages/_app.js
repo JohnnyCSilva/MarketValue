@@ -18,6 +18,7 @@ import {useState, useEffect} from 'react'
 import {auth} from '../config/Firebase'
 import {onAuthStateChanged} from 'firebase/auth'
 
+
 function MyApp({ Component, pageProps }) {
 
   const [currentUser, setCurrentUser] = useState(null)
@@ -30,6 +31,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <AuthProvider value={{currentUser}}>
+
         <Head>
           <title>MarketValue</title>
           <meta name="description" content="Your investment's in one place" />
