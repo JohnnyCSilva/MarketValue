@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react'
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, db } from '../config/Firebase'
-import { doc, getDoc } from "firebase/firestore";
+import { signInWithEmailAndPassword,} from 'firebase/auth';
+import { auth, db, googleSignIn } from '../config/Firebase'
 import { Toast } from 'primereact/toast';
+import { useAuthValue } from "../config/AuthContext"
+
 
 const SignIn = () => {
 
@@ -27,26 +28,22 @@ const SignIn = () => {
     }
   }
 
-  
+  const login = async(e) => {
+    (e).preventDefault()
+    signInWithEmailAndPassword(auth, email, password);
+    toast.current.show({ severity: 'success', summary: 'Login Successfully!', detail: 'Account Reached! We are now redirecting you!', life: 4000 });
+    await delay(4000);
+    window.location = '/Dashboard';
 
-  const verifyUsersRegisted = async(e) => {
-    (e).preventDefault();
-
-    const usersRef = doc(db, "users", email);
-  
-    const userExists = await getDoc(usersRef);
-
-    if (userExists.exists()){
-
-      toast.current.show({ severity: 'success', summary: 'Login Successfully!', detail: 'Account Reached! We are now redirecting you!', life: 4000 });
-
-      signInWithEmailAndPassword(auth, email, password);
-      await delay(4000);
-      window.location = '/Dashboard';
-    } else {
-      toast.current.show({ severity: 'error', summary: 'Account not Created!', detail: 'This email does not exist in our database. Please create a new account.', life: 3000 });
-    }
+    //   toast.current.show({ severity: 'error', summary: 'Account not Created!', detail: 'This email does not exist in our database. Please create a new account.', life: 3000 });
   }
+  
+
+  function childOfAuthProvider(){
+    const {currentUser} = useAuthValue()
+    console.log(currentUser)
+  }
+
 
   return (
     <div className="main__signUp">
@@ -60,7 +57,7 @@ const SignIn = () => {
             <p>Login into your account to manage your Portfolio</p>
           </div>
           <div className='signUp__buttons'>
-            <div className="google" href="">
+            <div className="google"  onClick={googleSignIn}>
               <img src="/images/google_logo.png" alt="GoogleAuthProvider" />
               <p> Sign In with Google</p>
             </div>
@@ -69,7 +66,7 @@ const SignIn = () => {
             <span>or Sign in with Email</span>
           </div>
           <div className='signUp__form'>
-            <form onSubmit={verifyUsersRegisted}>
+            <form onSubmit={login}>
               <label>Email</label>
               <div className='signUp__input'>
                 <i className="pi pi-at" />
@@ -84,7 +81,7 @@ const SignIn = () => {
             </form>
           </div>
           <div className="signUp__after">
-            <p> Dont have an account? <a href="/SignUp">Create Here</a></p>
+            <p> Dont have an account? <a href="/SignUp">Sign Up</a></p>
           </div>
         </div>
       </div>

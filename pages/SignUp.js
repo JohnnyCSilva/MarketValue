@@ -1,56 +1,74 @@
 import React, { useState, useRef } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth, db } from '../config/Firebase'
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { auth } from '../config/Firebase'
 import { Toast } from 'primereact/toast';
 
 const SignUp = () => {
 
-  const [registerUsername, setUsername] = useState();
-  const [registerEmail, setRegisterEmail] = useState();
-  const [registerPassword, setRegisterPassword] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
   const toast = useRef(null) ;
 
   const delay = ms => new Promise(res => setTimeout(res, ms));
 
-
-  const verifyUsersRegisted = async(e) => {
-    (e).preventDefault();
-
-    const usersRef = doc(db, "users", registerEmail);
-    
-    const data = {
-      username: registerUsername,
-      email: registerEmail,
+  const validatePassword = () => {
+    let isValid = true
+    if (password !== '' && confirmPassword !== ''){
+      if (password !== confirmPassword) {
+        isValid = false
+      }
     }
-
-    const userExists = await getDoc(usersRef);
-
-    if (userExists.exists()){
-
-      toast.current.show({ severity: 'error', summary: 'Email Already in Use', detail: 'The email is already in use, please a diferent email or contact support for more information.', life: 3000 });
-
-    } else {
-      setDoc(usersRef, data);
-      createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
-      toast.current.show({ severity: 'success', summary: 'Account Created Successfully', detail: 'Account Created Successfully, we are redirecting you!', life: 4000 });
-      await delay(4000);
-      window.location = '/Dashboard';
-    }
+    return isValid
   }
 
+  const register = async(e) => {
+    (e).preventDefault()
+    if(validatePassword()) {
+      // Create a new user with email and password using firebase
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((res) => {
+            console.log(res.user)
+          })
+        .catch(err => setError(err.message))
+        toast.current.show({ severity: 'success', summary: 'Account Created Successfully', detail: 'Account Created Successfully, we are redirecting you to your dashboard!', life: 4000 });
+        await delay(4000);
+        window.location = '/Dashboard';
+    } else {
+      toast.current.show({ severity: 'error', summary: 'Passwords does not match', detail: 'Please re-enter your password or use a diferent one.', life: 3000 });
+
+    }
+    setEmail('')
+    setPassword('')
+    setConfirmPassword('')
+  }
+  
   const showPassword = () => {
-    var password = document.getElementById('password');
+    var Fpassword = document.getElementById('fpassword');
     var icon = document.getElementById('show__password');
 
-    if (password.type === "password") {
+    if (Fpassword.type === "password") {
       icon.classList.remove('pi-lock');
       icon.classList.add('pi-unlock');
-      password.type = "text";
+      Fpassword.type = "text";
     } else {
       icon.classList.remove('pi-unlock');
       icon.classList.add('pi-lock');
-      password.type = "password";
+      Fpassword.type = "password";
+    }
+  }
+  const showConfirmPassword = () => {
+    var Cpassword = document.getElementById('cpassword');
+    var icon = document.getElementById('show__confirmpassword');
+
+    if (Cpassword.type === "password") {
+      icon.classList.remove('pi-lock');
+      icon.classList.add('pi-unlock');
+      Cpassword.type = "text";
+    } else {
+      icon.classList.remove('pi-unlock');
+      icon.classList.add('pi-lock');
+      Cpassword.type = "password";
     }
   }
 
@@ -75,21 +93,21 @@ const SignUp = () => {
             <span>or Sign in with Email</span>
           </div>
           <div className='signUp__form'>
-            <form onSubmit={verifyUsersRegisted}>
-              <label>Username</label>
-              <div className='signUp__input'>
-                <i className="pi pi-user" />
-                <input type="text" name="Name" placeholder="Name" required onChange={(event) => { setUsername(event.target.value)} }/>
-              </div>
+            <form onSubmit={register}>
               <label>Email</label>
               <div className='signUp__input'>
                 <i className="pi pi-at" />
-                <input type="email" name="Email" placeholder="Email" required onChange={(event) => { setRegisterEmail(event.target.value)} }/>
+                <input type="email" name="email" placeholder="Email" required onChange={(event) => { setEmail(event.target.value)} }/>
               </div>
               <label>Password</label>
               <div className='signUp__input'>
                 <i className="pi pi-lock" id="show__password" onClick={showPassword}/>
-                <input type="password" name="Password" id="password" placeholder="Password" required onChange={(event) => { setRegisterPassword(event.target.value)} }/>
+                <input type="password" name="Password" placeholder="Password" id="fpassword" required onChange={(event) => { setPassword(event.target.value)} }/>
+              </div>
+              <label>Confirm Password</label>
+              <div className='signUp__input'>
+                <i className="pi pi-lock" id="show__confirmpassword" onClick={showConfirmPassword}/>
+                <input type="password" name="ConfirmPassword" id="cpassword" placeholder="Confirm Password" required onChange={(event) => { setConfirmPassword(event.target.value)} }/>
               </div>
               <button type="submit" className="btn__submit" >Create Account</button>
             </form>
