@@ -115,7 +115,7 @@ const NavBar = () => {
     }
 
   return (
-    <div className='main__header'>~
+    <div className='main__header'>
 
     <Toast ref={toast} position="bottom-left" baseZIndex="1000"/>
 

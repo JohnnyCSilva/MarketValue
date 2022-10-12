@@ -3,7 +3,7 @@ import '../styles/navbar.css'
 import '../styles/contentMain.css'
 import '../styles/crypto.css'
 import '../styles/signUp.css'
-import '../config/Firebase.js'
+import '../styles/dashboard.css'
 
 import 'primeicons/primeicons.css';
 import "primereact/resources/primereact.css";

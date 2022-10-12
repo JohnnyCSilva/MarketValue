@@ -2,7 +2,7 @@ import React from 'react'
 import { signOut } from 'firebase/auth';
 import { auth } from '../../config/Firebase'
 import {useAuthValue} from '../../config/AuthContext'
-
+import SectionDashboard from './SectionDashboard';
 
 
 const ContentMain = () => {
@@ -15,11 +15,15 @@ const ContentMain = () => {
   }
 
   const {currentUser} = useAuthValue()
+  console.log(currentUser);
 
   return (
-    <div>
+    <div className="dashboard__main__content">
         <h2> Welcome {currentUser?.email}</h2>
         <button onClick={signUserOut}>Sign Out</button>
+
+        <SectionDashboard/>
+
     </div>
   )
 }

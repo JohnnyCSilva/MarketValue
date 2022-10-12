@@ -1,0 +1,66 @@
+.dashboard__main__content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+}
+.dashboard__section1__container{
+    margin: 100px 0 100px 0;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+.dashboard__section1__header>h1{
+    text-align: left;
+    font-family: var(--appFont);
+    font-size: 50px;
+    font-weight: bold;
+    color: var(--appText);
+}
+.dashboard__graph__container{
+    margin-top: 25px;
+    padding: 30px;
+    background-color: var(--appTextHover);
+    border-radius: 15px;
+    font-family: var(--appFont);
+}
+.dashboard__graph__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dashboard__graph__left>p{
+    color: var(--secondaryColor);
+    font-size: 12px;
+}
+.graph__options{
+    justify-content: space-between;
+    display: flex;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: var(--appBackground);
+}
+.graph__options>p{
+    cursor: pointer;
+    font-size: 12px;
+    padding: 7px;
+    border-radius: 5px;
+    margin: 0 10px;
+    color: var(--secondaryColor);    
+    transition: 0.2s ease-in-out;
+}
+.graph__options>.active{
+    background-color: var(--appTextHover);
+    color: var(--mainColor);    
+}
+.graph__options>p:hover{
+    background-color: var(--appTextHover);
+    color: var(--mainColor);
+}
+.dashboard__graph{
+    width: 100%;
+    margin-top: 50px;
+}
+
