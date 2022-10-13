@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { LineChart, Line, ResponsiveContainer } from 'recharts';
-
-
+import { LineChart, Line, ResponsiveContainer, Tooltip } from 'recharts';
 
 const SectionDashboard = () => {
 
     const [sparkline, setSparkline] = useState([]);
-    
-    const [value, setValue] = useState(30);
+    const [portValue, setPortValue] = useState([]);
+    const [value, setValue] = useState();
 
     useEffect(() => {
         axios
           .get(
-            `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=30&interval=daily`
+            `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=180&interval=daily`
             )
           .then(res => {
                 setSparkline(res.data.prices);
@@ -27,6 +25,20 @@ const SectionDashboard = () => {
         }).catch(error => console.log(error));
     }
 
+    const CustomTooltip = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            setPortValue((payload[0].value).toFixed(2));
+          return (
+            <div className="custom-tooltip">
+              <p className="label">{`Value:  ${payload[0].value}`}</p>
+            </div>
+          );
+        }
+        
+      
+        return null;
+    };
+
   return (
     <div  className="dashboard__section1__container">
         <div className="dashboard__section1__header">
@@ -36,7 +48,7 @@ const SectionDashboard = () => {
             <div className="dashboard__graph__header">
                 <div className="dashboard__graph__left">
                     <p>Total Invested Value</p>
-                    <h1>22<span>€</span></h1>
+                    <h1>{portValue}<span> €</span></h1>
                 </div>
                 <div className='dashboard__graph__right'>
                     <div className="graph__options">
@@ -53,7 +65,8 @@ const SectionDashboard = () => {
             <div className='dashboard__graph'>
                 <ResponsiveContainer width="100%" height={200}>
                     <LineChart data={sparkline}>
-                        <Line type="monotone" dataKey="1" stroke="var(--mainColor)" />
+                        <Line type="monotone" dataKey="1" stroke="var(--mainColor)" />~
+                        <Tooltip content={<CustomTooltip />} />
                     </LineChart>
                 </ResponsiveContainer>
             </div>
