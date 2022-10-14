@@ -30,6 +30,7 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
+    
     <AuthProvider value={{currentUser}}>
 
         <Head>

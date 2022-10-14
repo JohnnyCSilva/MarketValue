@@ -29,13 +29,15 @@
 .dashboard__graph__header{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
+    vertical-align: middle;
 }
 .dashboard__graph__left>p{
     color: var(--secondaryColor);
     font-size: 12px;
 }
 .graph__options{
+    vertical-align: middle;
     justify-content: space-between;
     display: flex;
     padding: 5px;
@@ -64,3 +66,24 @@
     margin-top: 50px;
 }
 
+@media only screen and (max-width: 1190px) {
+    .dashboard__section1__container{
+        width: 95%;
+    }
+}
+@media only screen and (max-width: 870px) {
+    .dashboard__graph__header{
+        flex-direction: column;
+        justify-content: left;
+        align-items: left;
+    }
+    .dashboard__graph__left>h1{
+        margin-bottom: 20px;
+    }
+    .dashboard__graph__container{
+        padding: 20px;
+    }
+    .graph__options>p{
+        padding: 5px;
+    }
+}

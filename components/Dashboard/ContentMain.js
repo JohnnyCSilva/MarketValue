@@ -19,8 +19,6 @@ const ContentMain = () => {
 
   return (
     <div className="dashboard__main__content">
-        <h2> Welcome {currentUser?.email}</h2>
-        <button onClick={signUserOut}>Sign Out</button>
 
         <SectionDashboard/>
 
