@@ -8,36 +8,33 @@ const SectionDashboard = () => {
 
     const [sparkline, setSparkline] = useState([]);
     const [portValue, setPortValue] = useState([]);
-    const [value, setValue] = useState();
-
-    const interval = "&interval=daily";
-    
+    const [value, setValue] = useState([]);
+    const [interval, setInterval] = useState("daily");    
 
     useEffect(() => {
         axios
           .get(
-            `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=24${interval}`
+            `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=24&interval=daily`
             )
           .then(res => {
                 setSparkline(res.data.prices.map(value => ({ x: moment(value[0]).format('MMMM Do YYYY'), y: (value[1].toFixed(2)) })));
-                console.log(res.data.prices);
+                //console.log(res.data.prices);
           })
               .catch(error => console.log(error));
       }, []);
 
-    /*function makeGraph() {
-        axios.get(`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=${value}`).then(res => {
-            setSparkline(res.data.prices);
+    function makeGraph() {
+        console.log(value);
+        axios.get(`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=${value}&interval=${interval}`).then(res => {
+            setSparkline(res.data.prices.map(value => ({ x: moment(value[0]).format('MMMM Do YYYY'), y: (value[1].toFixed(2)) })));
         }).catch(error => console.log(error));
-    }*/
+    }
 
     const CustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
             setPortValue(payload[0].value);
-          return (
-            <div className="custom-tooltip">
-            </div>
-          );
+
+          return
         }
         return null;
     };
@@ -51,25 +48,24 @@ const SectionDashboard = () => {
         <div className="dashboard__graph__container">
             <div className="dashboard__graph__header">
                 <div className="dashboard__graph__left">
-                    <p>Total Invested Value</p>
+                    <p>Total Invested</p>
                     <h1>{portValue}<span> €</span></h1>
                 </div>
                 <div className='dashboard__graph__right'>
                     <div className="graph__options">
-                        <p>1d</p>
-                        <p>7d</p>
-                        <p>1m</p>
-                        <p>3m</p>
-                        <p>6m</p>
-                        <p>1y</p>
-                        <p>All</p>
+                        <p onClick={(e) => {setValue(1); setInterval(""); makeGraph()}}>24h</p>
+                        <p onClick={(e) => {setValue(7); setInterval(""); makeGraph()}}>7d</p>
+                        <p onClick={(e) => {setValue(30); setInterval("daily"); makeGraph()}}>30d</p>
+                        <p onClick={(e) => {setValue(90); setInterval("daily"); makeGraph()}}>90d</p>
+                        <p onClick={(e) => {setValue(356); setInterval("daily"); makeGraph()}}>356d</p>
+                        <p onClick={(e) => {setValue("max"); setInterval("yearly"); makeGraph()}}>All</p>
                     </div>                
                 </div>
             </div>
             <div className='dashboard__graph'>
                 <ResponsiveContainer width="100%" height={200}>
                     <LineChart data={sparkline}>
-                        <YAxis dataKey="y" domain={[18500, 20500]} tickLine={false} interval="preserveStartEnd"/>
+                        <YAxis dataKey="y" domain={['auto', 'auto']}  interval="preservend"/>
                         <Line type="monotone" dataKey="y" stroke="var(--mainColor)" />~
                         <Tooltip content={<CustomTooltip />} />
                     </LineChart>

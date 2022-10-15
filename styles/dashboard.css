@@ -34,7 +34,7 @@
 }
 .dashboard__graph__left>p{
     color: var(--secondaryColor);
-    font-size: 12px;
+    font-size: 13px;
 }
 .graph__options{
     vertical-align: middle;
@@ -46,7 +46,7 @@
 }
 .graph__options>p{
     cursor: pointer;
-    font-size: 12px;
+    font-size: 15px;
     padding: 7px;
     border-radius: 5px;
     margin: 0 10px;
@@ -54,11 +54,9 @@
     transition: 0.2s ease-in-out;
 }
 .graph__options>.active{
-    background-color: var(--appTextHover);
     color: var(--mainColor);    
 }
 .graph__options>p:hover{
-    background-color: var(--appTextHover);
     color: var(--mainColor);
 }
 .dashboard__graph{
