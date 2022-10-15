@@ -4,8 +4,10 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { classNames } from 'primereact/utils';
-
+import { db } from '../../config/Firebase'
+import { addDoc, collection } from "firebase/firestore";
 import { Sparklines, SparklinesLine } from 'react-sparklines';
+import { error } from 'jquery';
 
 const Section1 = () => {
 
@@ -119,6 +121,32 @@ const Section1 = () => {
 
     const [selectedProduct, setSelectedProduct] = useState(null);
 
+    const handleClickCoin = async() => {
+        console.log(selectedProduct);
+
+        // inserir popup com informações sobre a moeda,
+        // fazer um btn para criar uma função de compra e inserir a quantidade
+        // colocar essa moeda a ser apresentada no dashboard do utilizador,
+        // o dashboard tem que ser pessoal e não aparecer mais nenhuma moeda a não ser as que ele quer
+
+        try {
+        const docRef = await addDoc(collection(db, "coins"), {
+            id: selectedProduct.id,
+            symbol: selectedProduct.symbol,
+            name: selectedProduct.name,
+            image: selectedProduct.image,
+            current_price : selectedProduct.current_price,
+            price_change_percentage_24h : selectedProduct.price_change_percentage_24h,
+            market_cap : selectedProduct.market_cap,
+            total_volume : selectedProduct.total_volume, 
+        });
+      
+            console.log("Done");
+        } catch (e) {
+            console.error("Error");
+        }
+    }
+
 
   return (
     <div className="crypto__section1__container">
@@ -150,7 +178,8 @@ const Section1 = () => {
              rows={15}
              selectionMode="single" 
              selection={selectedProduct} 
-             onSelectionChange={e => setSelectedProduct(e.value)} dataKey="name"
+             onSelectionChange={ e => setSelectedProduct(e.value)} dataKey="name"
+             onClick={handleClickCoin}
              filters={filters1}
              emptyMessage="Crypto Currency not Found"
              globalFilterFields={['name','current_price','price', 'change_percentage_24h', 'market_cap', 'total_volume']}
