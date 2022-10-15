@@ -89,10 +89,10 @@ const NavBar = () => {
             label:'Log Out',
             icon:'pi pi-sign-out',
             command: async() => {
-                console.log('signUserOut', currentUser);
+                //console.log('signUserOut', currentUser);
                 signOut(auth);
                 toast.current.show({ severity: 'info', summary: 'You were logged out!', detail: 'Your account has been logged out! We are redirecting you.', life: 4000 });
-                await delay(4000);
+                await delay(3000);
                 window.location = '/';
             }
         }

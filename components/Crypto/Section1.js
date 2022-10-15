@@ -7,9 +7,13 @@ import { classNames } from 'primereact/utils';
 import { db } from '../../config/Firebase'
 import { addDoc, collection } from "firebase/firestore";
 import { Sparklines, SparklinesLine } from 'react-sparklines';
-import { error } from 'jquery';
 
 const Section1 = () => {
+
+    const [coins, setCoins] = useState([]);
+    const [filters1, setFilters1] = useState(null);
+    const [globalFilterValue1, setGlobalFilterValue1] = useState('');
+    const [selectedProduct, setSelectedProduct] = useState();
 
     var randonPhraseString = [
         "Its the perfect time to buy some Bitcoin! ⭐",
@@ -26,11 +30,6 @@ const Section1 = () => {
     useEffect(() => {	
         setRandomPhrase(randonPhraseText.toString()); 
     },[]);
-
-    const [coins, setCoins] = useState([]);
-    const [filters1, setFilters1] = useState(null);
-    const [globalFilterValue1, setGlobalFilterValue1] = useState('');
-    
     useEffect(() => {
       axios
         .get(
@@ -41,11 +40,9 @@ const Section1 = () => {
         })
             .catch(error => console.log(error));
     }, []);
-
     useEffect(() => {
         initFilters1();
     }, []);
-
     const initFilters1 = () => {
         setFilters1({
             'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -58,7 +55,6 @@ const Section1 = () => {
         });
         setGlobalFilterValue1('');
     }
-
     const onGlobalFilterChange1 = (e) => {
         const value = e.target.value;
         let _filters1 = { ...filters1 };
@@ -67,7 +63,6 @@ const Section1 = () => {
         setFilters1(_filters1);
         setGlobalFilterValue1(value);
     }
-
     const imageBodyTemplate = (rowData) => {
         return <img src={`${rowData.image}`} style={{width: '25px', borderRadius: '50px'}} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={rowData.image} className="product-image" />;
     }
@@ -82,13 +77,10 @@ const Section1 = () => {
     }
     const volumeBodyTemplate = (rowData) => {
         return formatCurrency(rowData.total_volume);
-    }
-        
+    } 
     const cryptocurrencyTemplate = (rowData) => {
-
         return rowData.name + " - " +  rowData.symbol;
     }
-
     const percentageBodyTemplate = (rowData) => {
         const percentageChanged = classNames({
             'negative': rowData.price_change_percentage_24h < 0,
@@ -103,8 +95,6 @@ const Section1 = () => {
             </div>
         );
     }
-
-    
     const renderSparkLine = (rowData) => {
         
         var chartColor = "";
@@ -119,9 +109,7 @@ const Section1 = () => {
                </Sparklines>;
     }
 
-    const [selectedProduct, setSelectedProduct] = useState(null);
-
-    const handleClickCoin = async() => {
+    /*const handleClickCoin = async() => {
         console.log(selectedProduct);
 
         // inserir popup com informações sobre a moeda,
@@ -129,24 +117,27 @@ const Section1 = () => {
         // colocar essa moeda a ser apresentada no dashboard do utilizador,
         // o dashboard tem que ser pessoal e não aparecer mais nenhuma moeda a não ser as que ele quer
 
-        try {
-        const docRef = await addDoc(collection(db, "coins"), {
-            id: selectedProduct.id,
-            symbol: selectedProduct.symbol,
-            name: selectedProduct.name,
-            image: selectedProduct.image,
-            current_price : selectedProduct.current_price,
-            price_change_percentage_24h : selectedProduct.price_change_percentage_24h,
-            market_cap : selectedProduct.market_cap,
-            total_volume : selectedProduct.total_volume, 
-        });
-      
-            console.log("Done");
-        } catch (e) {
-            console.error("Error");
-        }
-    }
+        
+    } */
 
+    useEffect(() => {
+        if (selectedProduct) {
+            try {
+                addDoc(collection(db, "coins"), {
+                    id: selectedProduct.id,
+                    symbol: selectedProduct.symbol,
+                    name: selectedProduct.name,
+                    image: selectedProduct.image,
+                    current_price : selectedProduct.current_price,
+                    price_change_percentage_24h : selectedProduct.price_change_percentage_24h,
+                    market_cap : selectedProduct.market_cap,
+                    total_volume : selectedProduct.total_volume, 
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }, [selectedProduct]);
 
   return (
     <div className="crypto__section1__container">
@@ -178,8 +169,8 @@ const Section1 = () => {
              rows={15}
              selectionMode="single" 
              selection={selectedProduct} 
-             onSelectionChange={ e => setSelectedProduct(e.value)} dataKey="name"
-             onClick={handleClickCoin}
+             onSelectionChange={e => setSelectedProduct(e.value)}
+             dataKey="name"
              filters={filters1}
              emptyMessage="Crypto Currency not Found"
              globalFilterFields={['name','current_price','price', 'change_percentage_24h', 'market_cap', 'total_volume']}
