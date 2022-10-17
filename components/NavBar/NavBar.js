@@ -10,6 +10,7 @@ import { Toast } from 'primereact/toast';
 const NavBar = () => {
 
     const {currentUser} = useAuthValue()
+    //console.log(currentUser);
     const delay = ms => new Promise(res => setTimeout(res, ms));    
 
     const items = [

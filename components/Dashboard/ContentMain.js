@@ -15,7 +15,7 @@ const ContentMain = () => {
   }
 
   const {currentUser} = useAuthValue()
-  console.log(currentUser);
+  //console.log(currentUser);
 
   return (
     <div className="dashboard__main__content">

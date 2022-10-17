@@ -2,9 +2,26 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { LineChart, Line, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
 import moment from 'moment';
+import { collection, query, getDocs } from "firebase/firestore";
+import { db } from '../../config/Firebase'
 
 
 const SectionDashboard = () => {
+
+    const q = query(collection(db, "coins"));
+
+    useEffect(() => {
+            try {
+                const querySnapshot = getDocs(q);
+                querySnapshot.forEach((doc) => {
+                    console.log(doc.id, " => ", doc.data());
+                    });
+            } catch (err) {
+                console.log(err);
+            }
+            
+    },[])
+    
 
     const [sparkline, setSparkline] = useState([]);
     const [portValue, setPortValue] = useState();
@@ -26,7 +43,6 @@ const SectionDashboard = () => {
     // Soma o valor de todas as moedas e coloca para fazer um grafico 
 
     useEffect(() => {
-        console.log("rere")
         if (value) {
             console.log(value);
             axios.get(`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=${value}&interval=${interval}`).then(res => {

@@ -4,11 +4,14 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { classNames } from 'primereact/utils';
+import { useAuthValue } from '../../config/AuthContext'
 import { db } from '../../config/Firebase'
 import { addDoc, collection } from "firebase/firestore";
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 const Section1 = () => {
+
+    const {currentUser} = useAuthValue()
 
     const [coins, setCoins] = useState([]);
     const [filters1, setFilters1] = useState(null);
@@ -124,6 +127,7 @@ const Section1 = () => {
         if (selectedProduct) {
             try {
                 addDoc(collection(db, "coins"), {
+                    userId: currentUser?.uid, 
                     id: selectedProduct.id,
                     symbol: selectedProduct.symbol,
                     name: selectedProduct.name,
