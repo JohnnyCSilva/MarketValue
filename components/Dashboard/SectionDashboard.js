@@ -9,12 +9,13 @@ const SectionDashboard = () => {
     const [sparkline, setSparkline] = useState([]);
     const [portValue, setPortValue] = useState();
     const [value, setValue] = useState(null);
+    const [date, setDate] = useState(null);
     const [interval, setInterval] = useState("daily");    
 
     const CustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
             setPortValue(payload[0].value);
-
+            setDate(payload[0].payload.x)
           return
         }
         return null;
@@ -29,7 +30,7 @@ const SectionDashboard = () => {
         if (value) {
             console.log(value);
             axios.get(`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=${value}&interval=${interval}`).then(res => {
-            setSparkline(res.data.prices.map(value => ({ x: moment(value[0]).format('MMMM Do YYYY'), y: (value[1].toFixed(2)) })));
+            setSparkline(res.data.prices.map(value => ({ x: moment(value[0]).format('MMMM Do YYYY, h:mm:ss a'), y: (value[1].toFixed(2)) })));
             }).catch(error => console.log(error));
         } else {
             axios.get(`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=24&interval=daily`).then(res => {
@@ -47,7 +48,7 @@ const SectionDashboard = () => {
         <div className="dashboard__graph__container">
             <div className="dashboard__graph__header">
                 <div className="dashboard__graph__left">
-                    <p>Total Invested</p>
+                    <p>{date}</p>
                     <h1>{portValue}<span> €</span></h1>
                 </div>
                 <div className='dashboard__graph__right'>

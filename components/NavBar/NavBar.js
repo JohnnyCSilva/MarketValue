@@ -14,8 +14,11 @@ const NavBar = () => {
 
     const items = [
         {
-            label:'Portfolio',
+            label:'Dashboard',
             icon:'pi pi-chart-pie',
+            command: async() => {
+                window.location = '/Dashboard';
+            }
         },
         {
             label:'Watchlist',
