@@ -5,29 +5,29 @@ import moment from 'moment';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from '../../config/Firebase'
 import { useAuthValue } from '../../config/AuthContext'
-import { async } from '@firebase/util';
 
 const SectionDashboard = () => {
 
     const { currentUser } = useAuthValue();
+    let totalPrice = 0;
+    const [portfolioValue, setPortfolioValue] = useState();
    
-       useEffect(() => {
-            
-            if (currentUser) {
-                console.log("user" ,currentUser.uid)
-                const q = query(collection(db, "coins"), where("userId", "===", currentUser.uid));
-                console.log(q)
-                const teste = async() =>{
-                    const querySnapshot = await getDocs(q);
-                    querySnapshot.forEach((doc) => {
-                    // doc.data() is never undefined for query doc snapshots
-                    console.log(doc.id, " => ", doc.data());
-                    });
-                }
-            }
+    useEffect(() => {
+        if (currentUser) {
+            getCoinsFromUser();
+        }
         },[currentUser])
    
-    
+    const getCoinsFromUser = async() =>{
+        const queryDB = query(collection(db, "coins"), where("userId", "==", currentUser.uid));
+        const getCoinsFromUserDB = await getDocs(queryDB);
+        getCoinsFromUserDB.forEach((doc) => {
+            //console.log(doc.id, " => ", doc.data());
+            totalPrice += doc.data().current_price;
+        });   
+       console.log((totalPrice).toFixed(2), "€");
+       setPortfolioValue((totalPrice).toFixed(2));
+    }
 
     const [sparkline, setSparkline] = useState([]);
     const [portValue, setPortValue] = useState();
@@ -42,9 +42,9 @@ const SectionDashboard = () => {
         }
     };
 
-    // Le a base de dados pelas cryptos que ele tem
-    // Apresenta valor total das moedas todas que tem
-    // Soma o valor de todas as moedas e coloca para fazer um grafico 
+    // Le o ID da moeda e vai buscar os dados da moeda ao coingecko
+    // apresenta as moedas que ele tem em baixo e junta todos os seus valores atuais
+    // guarda os dados delas com o seu timestamp para apresentar um gráfico que funcione através de tempo
 
     useEffect(() => {
         if (value) {
@@ -69,7 +69,7 @@ const SectionDashboard = () => {
             <div className="dashboard__graph__header">
                 <div className="dashboard__graph__left">
                     <p>{date}</p>
-                    <h1>{portValue}<span> €</span></h1>
+                    <h1>{portValue} total: {portfolioValue}<span> €</span></h1>
                 </div>
                 <div className='dashboard__graph__right'>
                     <div className="graph__options">

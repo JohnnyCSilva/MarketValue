@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, googleSignIn } from 'firebase/auth';
 import { auth } from '../config/Firebase'
 import { Toast } from 'primereact/toast';
 
@@ -84,7 +84,7 @@ const SignUp = () => {
             <p>See your growth and get consulting support!</p>
           </div>
           <div className='signUp__buttons'>
-            <div className="google">
+            <div className="google" onClick={googleSignIn}>
               <img src="/images/google_logo.png" alt="GoogleAuthProvider" />
               <p> Sign up with Google</p>
             </div>
