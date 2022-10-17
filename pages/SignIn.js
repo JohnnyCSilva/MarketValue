@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { signInWithEmailAndPassword,} from 'firebase/auth';
+import { signInWithEmailAndPassword, getUserByEmail} from 'firebase/auth';
 import { auth, googleSignIn } from '../config/Firebase'
 import { Toast } from 'primereact/toast';
 import { useAuthValue } from "../config/AuthContext"
@@ -31,19 +31,23 @@ const SignIn = () => {
   const login = async(e) => {
     (e).preventDefault()
     signInWithEmailAndPassword(auth, email, password);
-    toast.current.show({ severity: 'success', summary: 'Login Successfully!', detail: 'Account Reached! We are now redirecting you!', life: 4000 });
-    await delay(4000);
-    window.location = '/Dashboard';
 
-    // toast.current.show({ severity: 'error', summary: 'Account not Created!', detail: 'This email does not exist in our database. Please create a new account.', life: 3000 });
+    // if 
+
+    if (signInWithEmailAndPassword(auth, email, password)) {
+      toast.current.show({ severity: 'success', summary: 'Login Successfully!', detail: 'Account Reached! We are now redirecting you!', life: 4000 });
+      await delay(4000);
+      window.location = '/Dashboard';
+    } else{
+      toast.current.show({ severity: 'error', summary: 'Email or Password is wrong!', detail: 'Something went wrong, please try again', life: 3000 });
+
+    }
   }
-  
 
   function childOfAuthProvider(){
     const {currentUser} = useAuthValue()
-    console.log(currentUser)
+    //console.log(currentUser)
   }
-
 
   return (
     <div className="main__signUp">
