@@ -131,11 +131,6 @@ const Section1 = () => {
                     id: selectedProduct.id,
                     symbol: selectedProduct.symbol,
                     name: selectedProduct.name,
-                    image: selectedProduct.image,
-                    current_price : selectedProduct.current_price,
-                    price_change_percentage_24h : selectedProduct.price_change_percentage_24h,
-                    market_cap : selectedProduct.market_cap,
-                    total_volume : selectedProduct.total_volume, 
                 });
             } catch (e) {
                 console.log(e);
