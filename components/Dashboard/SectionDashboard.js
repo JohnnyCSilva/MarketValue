@@ -2,25 +2,31 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { LineChart, Line, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
 import moment from 'moment';
-import { collection, query, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from '../../config/Firebase'
-
+import { useAuthValue } from '../../config/AuthContext'
+import { async } from '@firebase/util';
 
 const SectionDashboard = () => {
 
-    const q = query(collection(db, "coins"));
-
-    useEffect(() => {
-            try {
-                const querySnapshot = getDocs(q);
-                querySnapshot.forEach((doc) => {
+    const { currentUser } = useAuthValue();
+   
+       useEffect(() => {
+            
+            if (currentUser) {
+                console.log("user" ,currentUser.uid)
+                const q = query(collection(db, "coins"), where("userId", "===", currentUser.uid));
+                console.log(q)
+                const teste = async() =>{
+                    const querySnapshot = await getDocs(q);
+                    querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
                     console.log(doc.id, " => ", doc.data());
                     });
-            } catch (err) {
-                console.log(err);
+                }
             }
-            
-    },[])
+        },[currentUser])
+   
     
 
     const [sparkline, setSparkline] = useState([]);
@@ -33,9 +39,7 @@ const SectionDashboard = () => {
         if (active && payload && payload.length) {
             setPortValue(payload[0].value);
             setDate(payload[0].payload.x)
-          return
         }
-        return null;
     };
 
     // Le a base de dados pelas cryptos que ele tem
