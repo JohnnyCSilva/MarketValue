@@ -1,11 +1,10 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Dialog } from 'primereact/dialog';
 import { SlideMenu } from 'primereact/slidemenu';
 import { useAuthValue } from '../../config/AuthContext'
 import { auth} from '../../config/Firebase'
 import { signOut } from 'firebase/auth';
 import { Toast } from 'primereact/toast';
-
 
 const NavBar = () => {
 
@@ -118,8 +117,24 @@ const NavBar = () => {
         dialogFuncMap[`${name}`](false);
     }
 
+    const [navbar, setNavbar] = useState(false)
+    
+    const changeBackground = () => {
+        console.log(window.scrollY);
+        if(window.scrollY > 80){
+            setNavbar(true);
+        } else {
+            setNavbar(false);
+        }
+    }
+
+    React.useEffect(() => {
+        window.addEventListener("scroll", changeBackground);
+      }, []);
+
+
   return (
-    <div className='main__header'>
+    <div className={navbar ? "main__header scrolled" : "main__header"}>
 
     <Toast ref={toast} position="bottom-left" baseZIndex="1000"/>
 
@@ -132,19 +147,16 @@ const NavBar = () => {
             </div>
             <div className='navbar__menu'>
                 <a href='/Crypto' className='navbar__link' id='crypto__nav'>
-                   <p> Crypto </p>
+                   <p> Crypto Currencies </p>
                 </a>
                 <a href='/' className='navbar__link' id='stocks__nav'>
-                   <p> Stocks </p>
-                </a>
-                <a href='/' className='navbar__link' id='etfs__nav'>
-                   <p> ETF's </p>
+                   <p> Stock Market </p>
                 </a>
                 <a href='/' className='navbar__link' id='portfolio__nav'>
-                   <p> Portfolio </p>
+                   <p> Brokers & Exchanges </p>
                 </a>
                 <a href='/' className='navbar__link' id='learn__nav'>
-                   <p> Learn </p>
+                   <p> Community </p>
                 </a>
             </div>
             

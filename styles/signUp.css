@@ -1,9 +1,8 @@
 .main__signUp{
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: var(--appBackground);
     display: flex;
-    margin-top: 35px;
     flex-direction: row;
     align-items: center;
     justify-content: center;

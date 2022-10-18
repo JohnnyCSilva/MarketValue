@@ -40,24 +40,19 @@ const SectionDashboard = () => {
                     current_price: res.data.market_data.current_price.eur,
                     timestamp: serverTimestamp(),
                 });      */
+                getCoinsToMakeGraph();
             })  
+            
         }); 
         
     }
 
-    useEffect((currentUser, totalPrice) => {
-        if (currentUser, totalPrice) {
-            getCoinsToMakeGraph();
-        }
-    },[currentUser,totalPrice])
     // NOT WORKING 
 
     const getCoinsToMakeGraph = async() => {
-        console.log("teste");
         const queryGraph = query(collection(db, "makeGraph"), where("userId", "==", currentUser.uid));
         const makeGraphWithTimeStamp = await getDocs(queryGraph);
         makeGraphWithTimeStamp.forEach((doc) => {
-            console.log("teste")
             var currentTimeStamp = doc.data().timeStamp;
             // faz array de tempo e coloca no X
             currentPrice += doc.data().current_price;
@@ -104,7 +99,6 @@ const SectionDashboard = () => {
                         <p onClick={(e) => {setValue(7); setInterval("")}}>7d</p>
                         <p onClick={(e) => {setValue(30); setInterval("daily")}}>30d</p>
                         <p onClick={(e) => {setValue(90); setInterval("daily")}}>90d</p>
-                        <p onClick={(e) => {setValue(356); setInterval("daily")}}>356d</p>
                         <p onClick={(e) => {setValue("max"); setInterval("yearly")}}>All</p>
                     </div>                
                 </div>

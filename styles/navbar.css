@@ -3,8 +3,14 @@
     height: 100px;
     display: flex;
     justify-content: center;
+    position: fixed;
+    z-index: 999;
     align-items: center;
-    background-color: var(--appBackgroundHover);
+    background-color: transparent;
+    transition: background 0.2s ease-in-out;
+}
+.scrolled{
+    background-color: var(--appTextHover);
 }
 .navbar__container{
     width: 80%;
@@ -53,19 +59,7 @@
     justify-content: space-between;
     align-items: center;
 }
-.navbar__signIn{
-    text-decoration: none;
-    color: var(--appText);
-    font-family: var(--appFont);
-    font-size: 14px;
-    font-weight: bold;
-    padding: 15px 30px;
-    border-radius: 50px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
+
 .navbar__signUp{
     text-decoration: none;
     cursor: pointer;
@@ -92,17 +86,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid var(--secondaryColor);
+    border: 2px solid var(--mainColor);
     border-radius: 50px;
     width: 50px;
     height: 50px;
     margin-right: 10px;
     cursor: pointer;
-    color: var(--secondaryColor);
+    color: var(--mainColor);
     transition: all 0.2s ease-in-out;
 }
 .navbar__account>i:hover{
-    color: var(--mainColor);
+    color: var(--appTextHover);
+    background-color: var(--mainColor);
     border-color: var(--mainColor);
 }
 
