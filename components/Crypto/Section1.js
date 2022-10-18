@@ -11,7 +11,7 @@ import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 const Section1 = () => {
 
-    const {currentUser} = useAuthValue()
+    const {currentUser} = useAuthValue();
 
     const [coins, setCoins] = useState([]);
     const [filters1, setFilters1] = useState(null);
@@ -131,6 +131,7 @@ const Section1 = () => {
                     id: selectedProduct.id,
                     symbol: selectedProduct.symbol,
                     name: selectedProduct.name,
+                    category: "Cryptocurrency",
                 });
             } catch (e) {
                 console.log(e);

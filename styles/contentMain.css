@@ -110,13 +110,13 @@
 }
 .section2__header>h1{
     font-family: var(--appFont);
-    font-size: 50px;
+    font-size: 80px;
     font-weight: bold;
     color: var(--appText);
 }
 .section2__header>p{
     padding: 20px 0;
-    font-size: 17px;
+    font-size: 24px;
     color: var(--appText);
     font-family: var(--appFont);
 }
@@ -171,10 +171,10 @@
 }
 
 @media only screen and (max-width: 470px) {
-    .section1__header>h1{
+    .section1__header>h1, .section2__header>h1{
         font-size: 45px;
     }
-    .section1__header>p{
+    .section1__header>p .section2__header>p{
         font-size: 16px;
     }
     .main__banner{

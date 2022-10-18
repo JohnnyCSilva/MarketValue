@@ -20,13 +20,13 @@
 }
 .crypto__section1__header>h1{
     font-family: var(--appFont);
-    font-size: 50px;
+    font-size: 80px;
     font-weight: bold;
     color: var(--appText);
 }
 .crypto__section1__header>p{
     padding: 20px 0;
-    font-size: 17px;
+    font-size: 24px;
     color: var(--appText);
     font-family: var(--appFont);
 }
@@ -39,18 +39,21 @@
 }
 .crypto__section1__search__container{
     width: 480px;
-    padding: 0 25px;
-    border-radius: 15px;
+    padding: 0 10px;
+    border-radius: 50px;
     background-color: var(--appBackgroundHover);
-    color: var(--secondaryColor)
+    color: var(--appTextHover)
 }
 .crypto__section1__search__container>i{
+    border-radius: 50px;
     vertical-align: middle;
+    background-color: var(--mainColor);
+    padding: 10px;
 }
 .crypto__section1__search__container>input{
     color: var(--secondaryColor);
     vertical-align: middle;
-    width: 90%;
+    width: 70%;
     height: 60%;
     font-size: 13px;
     margin-left: 10px;
@@ -133,5 +136,11 @@
 @media only screen and (max-width: 470px) {
     .crypto__section1__search__container{
         width: 95%;
+    }
+    .crypto__section1__header>p{
+        font-size: 16px;
+    }
+    .crypto__section1__header>h1{
+        font-size: 45px
     }
 }
