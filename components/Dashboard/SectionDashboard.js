@@ -38,9 +38,7 @@ const SectionDashboard = () => {
             })      
                   
         }); 
-        
-        //getCoinsToMakeGraph();
-        
+                
     }
 
     useEffect(() => {
@@ -68,7 +66,6 @@ const SectionDashboard = () => {
         makeGraphWithTimeStamp.forEach((doc) => {
 
             const tempDat = doc.data().timestamp;
-            
 
             tempArray.push({
                 x: moment(tempDat.toDate()).format("MMMM Do YYYY, h:mm:ss a"),
@@ -76,7 +73,6 @@ const SectionDashboard = () => {
             })
         });    
 
-        console.log(tempArray);   
         setSparkline(tempArray);
 
     }
