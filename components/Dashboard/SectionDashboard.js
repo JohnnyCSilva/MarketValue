@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { LineChart, Line, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
 import moment from 'moment';
-import { collection, query, where, getDocs, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, query, where, getDocs, addDoc, serverTimestamp, limit, orderBy  } from "firebase/firestore";
 import { db } from '../../config/Firebase'
 import { useAuthValue } from '../../config/AuthContext'
 
@@ -33,30 +33,37 @@ const SectionDashboard = () => {
 
                 // soma o valor atual para apresentar na variavel CryptoTotalValue
                 totalValueCrypto += res.data.market_data.current_price.eur;
-                setCryptoTotalValue((totalValueCrypto).toFixed(2));  
+                setCryptoTotalValue((totalValueCrypto).toFixed(2));   
 
-            })             
+            })      
+                  
         }); 
-
-        addDoc(collection(db, "makeGraph"), {
-            userId: currentUser.uid, 
-            //id: res.data.id,
-            //symbol: res.data.symbol,
-            //name: res.data.name,
-            //current_price: res.data.market_data.current_price.eur,
-            totalPrice: cryptoTotalValue,
-            timestamp: serverTimestamp(),
-        }); 
-
-        getCoinsToMakeGraph();
+        
+        //getCoinsToMakeGraph();
         
     }
+
+    useEffect(() => {
+        if (cryptoTotalValue) {
+            console.log(cryptoTotalValue, "value");
+            /*addDoc(collection(db, "makeGraph"), {
+                userId: currentUser.uid, 
+                //id: res.data.id,
+                //symbol: res.data.symbol,
+                //name: res.data.name,
+                //current_price: res.data.market_data.current_price.eur,
+                totalPrice: cryptoTotalValue,
+                timestamp: serverTimestamp(),
+            }); */
+            getCoinsToMakeGraph();
+        }
+    },[cryptoTotalValue])
 
     const getCoinsToMakeGraph = async() => {
 
         let tempArray = [];
 
-        const queryGraph = query(collection(db, "makeGraph"), where("userId", "==", currentUser.uid));
+        const queryGraph = query(collection(db, "makeGraph"), where("userId", "==", currentUser.uid), orderBy("timestamp"));
         const makeGraphWithTimeStamp = await getDocs(queryGraph);
         makeGraphWithTimeStamp.forEach((doc) => {
 
@@ -102,14 +109,31 @@ const SectionDashboard = () => {
 
     const valuePercentageIcon = "pi pi-arrow-up-right";
 
+    const [cryptoTotalPrevious, setCryptoTotalPrevious] = useState();
+
+    useEffect(() => {
+        if(currentUser){
+            getMostRecentValue();
+        }
+    },[currentUser]);
+    const dbQuery = collection(db, "makeGraph");
+    const getMostRecentValue = async() => {
+        const queryDB2 = query(dbQuery, where("userId", "==", currentUser.uid), orderBy("timestamp"), limit(1));
+        const RecentCoin = await getDocs(queryDB2);
+        RecentCoin.forEach((doc) => {
+            setCryptoTotalPrevious(doc.data().totalPrice)
+        });
+    }
+    const cryptoValuePercentage = ((cryptoTotalValue-cryptoTotalPrevious)/100).toFixed(2);
+    const cryptoPercentageEur = (cryptoTotalValue-cryptoTotalPrevious).toFixed(2);
+
+    
     const stocksTotalValue = 2324;
     const etfTotalValue = 2324;
 
-    const cryptoValuePercentage = (cryptoTotalValue/100).toFixed(2);
     const stocksValuePercentage = 8.2;
     const etfValuePercentage = 12.3;
-
-    const cryptoPercentageEur = "+" +   cryptoTotalValue;
+    
     const stocksPercentageEur = 22.79;
     const etfPercentageEur = 85.34;
 
