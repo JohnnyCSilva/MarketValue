@@ -11,7 +11,7 @@ const SectionDashboard = () => {
     const { currentUser } = useAuthValue();
     let totalValueCrypto = 0;
     let currentPrice = 0;
-    const [cryptoTotalValue, setCryptoTotalValue] = useState();
+    const [cryptoTotalValue, setCryptoTotalValue] = useState(0);
 
     const [sparkline, setSparkline] = useState([]);
     const [graphDays, setGraphDays] = useState();
@@ -26,11 +26,17 @@ const SectionDashboard = () => {
    
     const getCryptoCoins = async() =>{
         const queryDB = query(collection(db, "coins"), where("userId", "==", currentUser.uid));
-        const getCoinsFromUserDB = await getDocs(queryDB);
+
+        let getCoinsFromUserDB
+        try {
+            getCoinsFromUserDB = await getDocs(queryDB);
+        } catch(e) {
+            console.error('Error getting Coins: ', e);
+        }
+        
         getCoinsFromUserDB.forEach((doc) => {
             var currentCoin = doc.data().id;
             axios.get(`https://api.coingecko.com/api/v3/coins/${currentCoin}?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`).then(res => {
-
                 // soma o valor atual para apresentar na variavel CryptoTotalValue
                 totalValueCrypto += res.data.market_data.current_price.eur;
                 setCryptoTotalValue((totalValueCrypto).toFixed(2));   
@@ -43,8 +49,7 @@ const SectionDashboard = () => {
 
     useEffect(() => {
         if (cryptoTotalValue) {
-            console.log(cryptoTotalValue, "value");
-            /*addDoc(collection(db, "makeGraph"), {
+            addDoc(collection(db, "makeGraph"), {
                 userId: currentUser.uid, 
                 //id: res.data.id,
                 //symbol: res.data.symbol,
@@ -52,7 +57,7 @@ const SectionDashboard = () => {
                 //current_price: res.data.market_data.current_price.eur,
                 totalPrice: cryptoTotalValue,
                 timestamp: serverTimestamp(),
-            }); */
+            });
             getCoinsToMakeGraph();
         }
     },[cryptoTotalValue])
@@ -67,10 +72,14 @@ const SectionDashboard = () => {
 
             const tempDat = doc.data().timestamp;
 
-            tempArray.push({
-                x: moment(tempDat.toDate()).format("MMMM Do YYYY, h:mm:ss a"),
-                y: doc.data().totalPrice,
-            })
+            if (tempDat){
+
+                tempArray.push({
+                    x: moment(tempDat.toDate()).format("MMMM Do YYYY, h:mm:ss a"),
+                    y: doc.data().totalPrice,
+                })
+
+            }
         });    
 
         setSparkline(tempArray);
@@ -105,7 +114,7 @@ const SectionDashboard = () => {
 
     const valuePercentageIcon = "pi pi-arrow-up-right";
 
-    const [cryptoTotalPrevious, setCryptoTotalPrevious] = useState();
+    const [cryptoTotalPrevious, setCryptoTotalPrevious] = useState(0);
 
     useEffect(() => {
         if(currentUser){
@@ -120,8 +129,8 @@ const SectionDashboard = () => {
             setCryptoTotalPrevious(doc.data().totalPrice)
         });
     }
-    const cryptoValuePercentage = ((cryptoTotalValue-cryptoTotalPrevious)/100).toFixed(2);
-    const cryptoPercentageEur = (cryptoTotalValue-cryptoTotalPrevious).toFixed(2);
+    const cryptoValuePercentage = ((cryptoTotalValue - cryptoTotalPrevious) / 100).toFixed(2) ;
+    const cryptoPercentageEur = (cryptoTotalValue - cryptoTotalPrevious).toFixed(2);
 
     
     const stocksTotalValue = 2324;
